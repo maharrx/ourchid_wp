@@ -1,0 +1,13 @@
+[24-Apr-2024 03:20:56 UTC] PHP Warning:  require(/home/ourchido/public_html/wp-content/themes/ourchid/cpt_projects.php): Failed to open stream: No such file or directory in /home/ourchido/public_html/wp-content/themes/ourchid/functions.php on line 73
+[24-Apr-2024 03:20:56 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/ourchido/public_html/wp-content/themes/ourchid/cpt_projects.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home/ourchido/public_html/wp-content/themes/ourchid/functions.php:73
+Stack trace:
+#0 /home/ourchido/public_html/wp-settings.php(663): include()
+#1 /home/ourchido/public_html/wp-config.php(96): require_once('/home/ourchido/...')
+#2 /home/ourchido/public_html/wp-load.php(50): require_once('/home/ourchido/...')
+#3 /home/ourchido/public_html/wp-admin/admin.php(34): require_once('/home/ourchido/...')
+#4 /home/ourchido/public_html/wp-admin/themes.php(10): require_once('/home/ourchido/...')
+#5 {main}
+  thrown in /home/ourchido/public_html/wp-content/themes/ourchid/functions.php on line 73
+[24-Apr-2024 03:20:56 UTC] PHP Warning:  Trying to access array offset on value of type bool in /home/ourchido/public_html/wp-includes/class-wp-recovery-mode-email-service.php on line 367
+[24-Apr-2024 03:20:56 UTC] PHP Warning:  Trying to access array offset on value of type bool in /home/ourchido/public_html/wp-includes/class-wp-recovery-mode-email-service.php on line 368
+[24-Apr-2024 03:23:12 UTC] PHP Warning:  Attempt to read property "title" on null in /home/ourchido/public_html/wp-includes/class-wp-customize-widgets.php on line 905
