@@ -18,7 +18,7 @@
 
 	<footer class="max-width-4 mx-auto p3 pb4" role="contentinfo">	
 		<div class="mxn3">
-			<div class="copyright px3">&copy; <?php echo get_bloginfo( 'name' ); ?> <?php echo date('Y'); ?></div>
+			<div class="copyright px3">&copy; <?php echo get_bloginfo( 'name' ); ?> Lab <?php echo date('Y'); ?></div>
 		</div>
 	</footer><!-- #colophon -->
 
