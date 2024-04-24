@@ -1,0 +1,45 @@
+<?php get_header(); ?>
+
+<main>        
+	<div class="max-width-4 mx-auto px3">
+
+		<section class="intro">
+			<?php the_archive_title( '<h1 class="mb3">', '</h1>' );?>
+			<?php the_archive_description(); ?>	
+		</section>
+
+		<section class="clearfix py3">
+			<?php while ( have_posts() ) { the_post(); ?>
+
+				<div class="py3">
+					<div class="research bg-default shadow">
+						
+						<div class="lg-flex">
+							<div class="lg-col-6 flex border-box">
+								<div class="col-12">
+									<?php if( has_post_thumbnail() ):?>
+										<?php the_post_thumbnail('full', array('class' => 'block mx-auto')); ?>
+									<?php else: ?>
+										<p class="mx-auto flex-auto block"><?php the_title(); ?></p>
+									<?php endif; ?>
+								</div>
+							</div>
+							<div class="lg-col-6 border-box ">
+								<div class="p4">
+									<h2 class="mt0"><a class="" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+									<?php the_excerpt( '<p class="m0">', '</p>' );?>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			<?php } ?>
+		</section>
+
+	</div>
+</main> 
+
+<?php get_footer(); ?>

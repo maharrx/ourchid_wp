@@ -21,10 +21,9 @@ function members_post_type() {
      );
 
      $template = array(        
-                array( 'core/image', array() ),
+                // array( 'core/image', array() ),
                 array( 'core/paragraph', array('placeholder' => 'Position') ),
-                array( 'core/paragraph', array('placeholder' => 'Affiliation') ),
-                array( 'core/paragraph', array('placeholder' => 'Link') ),
+                array( 'core/paragraph', array('placeholder' => 'Affiliation') )
     );
 
      // Register post type

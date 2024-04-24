@@ -1,0 +1,41 @@
+<?php get_header(); ?>
+
+<main>      
+	<div class="max-width-4 mx-auto px3">
+
+		<section class="intro">
+			<?php the_archive_title( '<h1 class="mb3">', '</h1>' );?>
+			<?php the_archive_description(); ?>	
+		</section>
+
+		<section class="clearfix mxn2 py3">	
+			<?php while ( have_posts() ) { the_post(); ?>
+
+				<div class="md-col md-col-6 lg-col-4 px2 my3">
+					<div class="profile bg-default shadow p3">                            
+						
+						<figure class="m0 m2 circle">                           
+							<?php if( has_post_thumbnail() ):?>
+								<?php the_post_thumbnail('full', array('class' => 'block mx-auto circle')); ?>
+							<?php else: ?>
+								<p class="mx-auto flex-auto block"><?php the_title(); ?></p>
+							<?php endif; ?>
+						</figure>
+						
+
+						<div class="pt3 center">
+							<h3 class="m0 mb2"><?php the_title(); ?></h3>
+							<?php the_content(); ?>
+						</div>
+					
+					</div>	
+
+				</div>    
+				
+			<?php } ?>
+		</section>						
+
+	</div>
+</main> 
+
+<?php get_footer(); ?>

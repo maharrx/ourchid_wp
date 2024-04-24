@@ -21,14 +21,20 @@ get_header();
         <div class="max-width-4 mx-auto px3">
 		
 		<?php if ( is_front_page() ) : ?>
-			<header class="hero py4">
+			<header class="hero pt4 pb3">
 				<h1 class="huge mb0"><?php echo get_bloginfo( 'name' ); ?></h1>
 				<h2 class="m0 p0"><?php echo get_bloginfo( 'description' ); ?></h2>
 			</header>    
+
+			<section class="pb4">	
+				<?php the_content();?>
+			</section>
+
+
 		<?php else: ?>
 			<div class="md-col md-col-12 mx-auto center px3">
 				<?php the_title('<h1>', '</h1>'); ?>
-				<?php the_content( '<h2>', '</h2>' );?>
+				<?php the_content();?>
 			</div>
 		<?php endif; ?>
 

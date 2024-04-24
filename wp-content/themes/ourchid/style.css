@@ -49,6 +49,14 @@
 
 
 
+	.research img{ width: 100%; height: 100%;  object-fit: cover; }
+	
+
+	.profile figure{ background-color: var(--color-primary);}
+	.profile img{ width: 100%; height: auto; -webkit-filter: grayscale(100%); filter: grayscale(100%); opacity: 0.95;}
+	.profile p{margin: 0; line-height: 1.5;}
+
+
 
 	@media only screen and (min-width: 52em){ /* breakpoint-md */
 		html, body{background: var(--gredient-md)}

@@ -20,11 +20,11 @@ function research_post_type() {
          'parent_item_colon' => '',
      );
 
-     $template = array(
+    //  $template = array(
         
-                array( 'core/image', array() ),
-                array( 'core/paragraph', array('placeholder' => 'Project Description') ),
-    );
+    //             array( 'core/image', array() ),
+    //             array( 'core/paragraph', array('placeholder' => 'Project Description') ),
+    // );
 
      // Register post type
     register_post_type('research' , array(
@@ -39,7 +39,7 @@ function research_post_type() {
         'show_in_menu' => true,
         'show_in_nav_menus' => true,
         'show_in_rest' => true,
-        'template' => $template,
+        // 'template' => $template,
         'taxonomies' => array( 'type' ),
         'template_lock' => 'all'
     ) );
