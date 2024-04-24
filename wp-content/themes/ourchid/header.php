@@ -23,22 +23,15 @@
 
 <?php wp_body_open(); ?>
 
-<header class="sticky py1 z4">
-
-	<div class="max-width-4 mx-auto px3">
-	<nav class="flex justify-start flex-center mxn3">
+<nav class="navbar clearfix px3 z4 sticky">
+	<div class="max-width-4 mx-auto flex items-center" >	
 		
-		<!-- desktop navigation if not homepage-->
-	
-		<div class="header-site-title flex-auto px3">
-			<?php if ( !is_front_page() ) : ?><!-- <h1 class="my2"></h1> -->		
-				<a class="h1 title m0" href="<?php echo get_bloginfo( 'url' ); ?>"><?php echo get_bloginfo( 'name' ); ?></a>
-			<?php endif; ?>
-		</div>
+		<div class="navbar-brand flex-auto">		
+			<a class="h2 block py2" href="<?php echo get_bloginfo( 'url' ); ?>"><?php echo get_bloginfo( 'name' ); ?> Lab</a>
+		</div>		
 		
-		
-		<div class="navigation-wrapper lg-show px3">
-			<ul class="primary-menu list-reset m0 p0">
+		<div class="nav-container">
+			<ul class="navbar-nav list-reset m0 py2 mxn2 xs-hide">
 				<?php
 					if ( has_nav_menu( 'primary-menu' ) ) {
 
@@ -53,18 +46,15 @@
 				?>
 			</ul>
 		</div>	
-
 		
 		<!-- mobile navigation toggle -->
-		<div role="button" aria-label="open sidebar" on="tap:sidebar.toggle" tabindex="0" class="lg-hide p2 px3">
+		<div role="button" aria-label="open sidebar" on="tap:sidebar.toggle" tabindex="0" class="sm-hide md-hide lg-hide">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="block"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
 		</div>
-
-	</nav>
+	
 	</div>
+</nav>
 		
-
-</header>
 
 	<!-- mobile navigation sidebar -->
 	<amp-sidebar id="sidebar" layout="nodisplay" side="right" class="">

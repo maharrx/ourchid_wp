@@ -1,12 +1,13 @@
 <?php get_header(); ?>
 
-<main class="max-width-4 mx-auto p3"> 
-	
+<main>        
+	<div class="max-width-4 mx-auto px3">
+
 	<?php the_archive_title( '<h1>', '</h1>' );?>
     <?php the_archive_description(); ?>	
 
 	<?php while ( have_posts() ) { the_post(); ?>
-		
+
 		<div class="mxn3 clearfix sm-flex flex-center my2">			
 			<div class="sm-col sm-col-6 px3">
 				<a class="cover border block p2 center flex flex-auto items-center flex-center" href="<?php the_permalink(); ?>">
@@ -26,7 +27,8 @@
 		</div>
 
 	<?php } ?>
-	
+
+	</div>
 </main> 
 
 <?php get_footer(); ?>

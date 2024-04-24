@@ -23,7 +23,7 @@ function raju_styles() {
 	wp_enqueue_style( 'css', get_stylesheet_uri());
 	wp_enqueue_style( 'basscss', get_template_directory_uri() . '/basscss.css');
 	wp_enqueue_style( 'font-playfair', 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700', false );
-	wp_enqueue_style( 'font-poppins', 'https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600', false );
+	wp_enqueue_style( 'font-poppins', 'https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800', false );
 }
 add_action( 'wp_enqueue_scripts', 'raju_styles' );
 
@@ -40,7 +40,7 @@ register_nav_menus(
 // Adding class to menu > li 
 function atg_menu_classes($classes, $item, $args) {
 	if($args->theme_location == 'primary' || 'social'  ) {
-	  $classes[] = 'inline-block py1';
+	  $classes[] = 'inline-block m0 mx1';
 	}
 	return $classes;
   }
