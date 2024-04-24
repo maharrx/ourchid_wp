@@ -40,7 +40,7 @@ register_nav_menus(
 // Adding class to menu > li 
 function atg_menu_classes($classes, $item, $args) {
 	if($args->theme_location == 'primary' || 'social'  ) {
-	  $classes[] = 'inline-block m0 mx1';
+	  $classes[] = 'inline-block m0 mx2';
 	}
 	return $classes;
   }
