@@ -56,7 +56,7 @@
 
 	.profile figure{ background-color: var(--color-primary);}
 	.profile img{ width: 100%; height: auto; -webkit-filter: grayscale(100%); filter: grayscale(100%); opacity: 0.95;}
-	.profile p{margin: 0; line-height: 1.25;}
+	.profile p{margin: 0; line-height: 1.5; font-size: 0.8rem;}
 
 
 
