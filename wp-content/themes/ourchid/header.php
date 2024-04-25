@@ -40,6 +40,7 @@
 								'container'  => '',
 								'items_wrap' => '%3$s',
 								'theme_location' => 'primary-menu',
+								'add_li_class'  => 'inline-block m0 mx2'
 							)
 						);
 					} 
@@ -61,7 +62,7 @@
 							
 		<div role="button" aria-label="close sidebar" on="tap:sidebar.toggle" tabindex="0" class="col-12 py4 center white">✕</div>
 						
-			<ul class="primary-menu list-reset m0 col-12">
+			<ul class="sidebar primary-menu list-reset m0 col-12">
 				<?php
 					if ( has_nav_menu( 'primary-menu' ) ) {
 						wp_nav_menu(
@@ -69,6 +70,7 @@
 								'container'  => '',
 								'items_wrap' => '%3$s',
 								'theme_location' => 'primary-menu',
+								'add_li_class'  => 'block py1 m0 center'
 							)
 						);
 					} 

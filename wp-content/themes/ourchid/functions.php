@@ -55,15 +55,26 @@ register_nav_menus(
 );
 
 // Adding class to menu > li 
-function atg_menu_classes($classes, $item, $args) {
-	if($args->theme_location == 'primary' || 'social'  ) {
-	  $classes[] = 'inline-block m0 mx2';
-	}
-	return $classes;
-  }
-add_filter('nav_menu_css_class', 'atg_menu_classes', 1, 3);
+function add_additional_class_on_li($classes, $item, $args) {
+    if(isset($args->add_li_class)) {
+        $classes[] = $args->add_li_class;
+    }
+    return $classes;
+}
+add_filter('nav_menu_css_class', 'add_additional_class_on_li', 1, 3);
   
 
+/**
+* Add li > a class menu
+*/
+function add_additional_class_on_a( $atts, $item, $args ) {
+    $class = 'nav-link py1 center block'; // or something based on $item
+    $atts['class'] = $class;
+    return $atts;
+ }
+ add_filter( 'nav_menu_link_attributes', 'add_additional_class_on_a', 1, 3 );
+
+ 
 // Replaces the excerpt "Read More" text by a link
 function new_excerpt_more($more) {
        global $post;
