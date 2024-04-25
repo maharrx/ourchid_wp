@@ -27,7 +27,8 @@ function rand_colors(){
     $arr = array( 
             "a"=>"<style>:root{ --color-primary: #ff5317;--color-secondary: #ffdece;}</style>", 
             "b"=>"<style>:root{ --color-primary: #22006f;--color-secondary: #daf7ee;}</style>", 
-            "c"=>"<style>:root{ --color-primary: #841617;--color-secondary: #fffdf1;}</style>"
+            "c"=>"<style>:root{ --color-primary: #841617;--color-secondary: #fffdf1;}</style>",
+            "d"=>"<style>:root{ --color-primary: #0041a0;--color-secondary: #fff4c0;}</style>",
         );
     //Use shuffle function to randomly assign numeric
     shuffle($arr);    

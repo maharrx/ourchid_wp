@@ -1,11 +1,17 @@
-     /* color-primary & color-secondary variables are declaired in functions.php*/
+     /* variables */
+	 :root{            
+                        
+		--color-primary: #ff5317;
+		--color-secondary: #ffdece;
 
-	:root{            
+		--color-primary:#22006f;
+		--color-secondary: #daf7ee;
+
 		--text-shadow: 2px 15px 35px rgba(0,0,0,0.25);
-		--gredient: radial-gradient(circle 500px at center 8%, #fff, var(--color-secondary));
-		--gredient-md: radial-gradient(circle 800px at center 10%, #fff, var(--color-secondary));
-		--text-gredient: radial-gradient(circle 100px at center 1%, #fff, var(--color-primary));
-		--text-gredient-md: radial-gradient(circle 200px at center 1%, #fff, var(--color-primary));
+		--gredient: radial-gradient(circle 800px at center 8%, rgba(255,255,255,0.1), var(--color-secondary));
+		--gredient-md: radial-gradient(circle 1000px at center 10%, rgba(255,255,255,0.1), var(--color-secondary));
+		--text-gredient: radial-gradient(circle 100px at center 0%, rgba(255,255,255,0.1), var(--color-primary));
+		--text-gredient-md: radial-gradient(circle 200px at center 0%, rgba(255,255,255,0.1), var(--color-primary));
 	}
 
 
@@ -33,10 +39,12 @@
 
 	.navbar{background: rgba(255, 255, 255, 0);backdrop-filter: blur(20px); }
 	.navbar li a{ text-transform: uppercase; border-bottom: 1px solid transparent;}
-	.navbar li a:hover, .navbar li a:active{ border-color: var(--color-primary);}
+	.navbar li a:hover, .navbar li a:active{ border-color: #000;}
 
 	
-	h1.huge{ font-size: 4em; font-weight:800; background-image: var(--text-gredient);background-size: 100%;background-repeat: repeat;-webkit-background-clip: text;-webkit-text-fill-color: transparent; -moz-background-clip: text;-moz-text-fill-color: transparent;}    
+	h1.huge{ font-size: 4em; font-weight:800; line-height: 1; text-shadow: var(--text-shadow);
+		/* background-image: var(--text-gredient);background-size: 100%;background-repeat: repeat;-webkit-background-clip: text;-webkit-text-fill-color: transparent; -moz-background-clip: text;-moz-text-fill-color: transparent; */
+	}    
 	.shadow{box-shadow: var(--text-shadow);}
 	.bg-default{ color: var(--color-primary); background:#fff}
 	.bg-inverse{ color: var(--color-secondary); background: var(--color-primary); }
@@ -48,14 +56,15 @@
 
 	.profile figure{ background-color: var(--color-primary);}
 	.profile img{ width: 100%; height: auto; -webkit-filter: grayscale(100%); filter: grayscale(100%); opacity: 0.95;}
-	.profile p{margin: 0; line-height: 1.5;}
+	.profile p{margin: 0; line-height: 1.25;}
 
 
 
 	@media only screen and (min-width: 52em){ /* breakpoint-md */
 		html, body{background: var(--gredient-md)}
 		h2, .h2{ font-size: 1.6em;}   
-		h1.huge{ font-size: 9em; font-weight: 800; text-shadow: var(--text-shadow);background-image: var(--text-gredient-md); line-height: 1; }   
+		h1.huge{ font-size: 9em; font-weight: 800; 
+			/* text-shadow: var(--text-shadow);background-image: var(--text-gredient-md); }    */
 		/* #research img{ height:100%; width: 100%; object-fit: cover;} */
 	}
 
