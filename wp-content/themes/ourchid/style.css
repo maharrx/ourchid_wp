@@ -1,13 +1,7 @@
-     /* variables */
-	 :root{            
-                        
-		--color-primary: #ff5317;
-		--color-secondary: #ffdece;
+     /* color-primary & color-secondary variables are declaired in functions.php*/
 
-		--color-primary:#22006f;
-		--color-secondary: #daf7ee;
-
-		--text-shadow: 2px 15px 35px rgba(0,0,0,0.5);
+	:root{            
+		--text-shadow: 2px 15px 35px rgba(0,0,0,0.25);
 		--gredient: radial-gradient(circle 500px at center 8%, #fff, var(--color-secondary));
 		--gredient-md: radial-gradient(circle 800px at center 10%, #fff, var(--color-secondary));
 		--text-gredient: radial-gradient(circle 100px at center 1%, #fff, var(--color-primary));
@@ -39,7 +33,7 @@
 
 	.navbar{background: rgba(255, 255, 255, 0);backdrop-filter: blur(20px); }
 	.navbar li a{ text-transform: uppercase; border-bottom: 1px solid transparent;}
-	.navbar li a:hover, .navbar li a:active{ border-color: #000;}
+	.navbar li a:hover, .navbar li a:active{ border-color: var(--color-primary);}
 
 	
 	h1.huge{ font-size: 4em; font-weight:800; background-image: var(--text-gredient);background-size: 100%;background-repeat: repeat;-webkit-background-clip: text;-webkit-text-fill-color: transparent; -moz-background-clip: text;-moz-text-fill-color: transparent;}    

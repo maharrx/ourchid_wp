@@ -19,11 +19,27 @@ add_theme_support( 'responsive-embeds' );
 // Add theme support for selective refresh for widgets.
 add_theme_support( 'customize-selective-refresh-widgets' );
 
+
+// random color
+add_action('wp_head', 'rand_colors', 100);
+function rand_colors(){        
+    // Declare an associative array
+    $arr = array( 
+            "a"=>"<style>:root{ --color-primary: #ff5317;--color-secondary: #ffdece;}</style>", 
+            "b"=>"<style>:root{ --color-primary: #22006f;--color-secondary: #daf7ee;}</style>", 
+            "c"=>"<style>:root{ --color-primary: #841617;--color-secondary: #fffdf1;}</style>"
+        );
+    //Use shuffle function to randomly assign numeric
+    shuffle($arr);    
+    // // Display the first shuffle element of array
+    echo $arr[0];
+}
+
 function raju_styles() { 
-	wp_enqueue_style( 'css', get_stylesheet_uri());
 	wp_enqueue_style( 'basscss', get_template_directory_uri() . '/basscss.css');
 	wp_enqueue_style( 'font-playfair', 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700', false );
 	wp_enqueue_style( 'font-poppins', 'https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800', false );
+	wp_enqueue_style( 'css', get_stylesheet_uri());    
 }
 add_action( 'wp_enqueue_scripts', 'raju_styles' );
 

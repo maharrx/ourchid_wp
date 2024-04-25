@@ -21,12 +21,12 @@ get_header();
         <div class="max-width-4 mx-auto px3">
 		
 		<?php if ( is_front_page() ) : ?>
-			<header class="hero pt4 pb3">
+			<header class="hero pb3">
 				<h1 class="huge mb0"><?php echo get_bloginfo( 'name' ); ?></h1>
 				<h2 class="m0 p0"><?php echo get_bloginfo( 'description' ); ?></h2>
 			</header>    
 
-			<section class="pb4">	
+			<section class="">	
 				<?php the_content();?>
 			</section>
 
