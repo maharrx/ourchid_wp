@@ -22,16 +22,19 @@ get_header(); ?>
 		<?php if ( have_posts() ):?>
 			<!-- // Load posts loop. -->
 			<?php while ( have_posts() ) : the_post(); ?>	
-				
-				<?php if( has_post_thumbnail() ):?>
-					<div class="featured-image fullwidth">
-						<?php the_post_thumbnail('full', array('class' => 'block mx-auto')); ?>
-					</div>
-				<?php endif; ?>
+				<header class="hero">
+					<?php if( has_post_thumbnail() ):?>
+						<div class="featured-image fullwidth">
+							<?php the_post_thumbnail('full', array('class' => 'block mx-auto')); ?>
+						</div>
+					<?php endif; ?>
 
-				<?php the_title('<h1>', '</h1>'); ?>
+					<?php the_title('<h1>', '</h1>'); ?>
+				</header>
 				
-				<?php the_content(); ?>
+				<section class="clearfix py3">	
+					<?php the_content(); ?>
+				</section>	
 				<!-- // get_template_part( 'template-parts/content/content', get_theme_mod( 'display_excerpt_or_full_post', 'excerpt' ) ); -->
 				<!-- // the_title(); -->
 			<?php endwhile; ?>				
@@ -40,7 +43,9 @@ get_header(); ?>
 		<?php  else: ?>
 			<!-- // If no content, include the "No posts found" template.
 			// get_template_part( 'template-parts/content/content-none' ); -->
-			<?php echo "No content found!"; ?>
+			<section class="clearfix py3">	
+				<?php echo "No content found!"; ?>
+			</section>
 		<?php endif; ?>
 
 	</div>	

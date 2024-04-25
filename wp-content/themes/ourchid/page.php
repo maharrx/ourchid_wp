@@ -26,14 +26,18 @@ get_header();
 				<h2 class="m0 p0"><?php echo get_bloginfo( 'description' ); ?></h2>
 			</header>    
 
-			<section class="">	
+			<section class="clearfix py3">	
 				<?php the_content();?>
 			</section>
 
 
 		<?php else: ?>
-			<div class="md-col md-col-12 mx-auto center px3">
+			
+			<header class="hero">
 				<?php the_title('<h1>', '</h1>'); ?>
+			</header>
+				
+			<section class="clearfix py3">	
 				<?php the_content();?>
 			</div>
 		<?php endif; ?>

@@ -3,10 +3,10 @@
 <main>        
 	<div class="max-width-4 mx-auto px3">
 
-		<section class="intro">
+		<header class="hero">
 			<?php the_archive_title( '<h1 class="mb3">', '</h1>' );?>
 			<?php the_archive_description(); ?>	
-		</section>
+		</header>
 
 		<section class="research clearfix py3">
 			<?php while ( have_posts() ) { the_post(); ?>
