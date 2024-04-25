@@ -8,7 +8,7 @@
 			<?php the_archive_description(); ?>	
 		</header>
 
-		<section class="research clearfix py3">
+		<section class="research clearfix">
 			<?php while ( have_posts() ) { the_post(); ?>
 
 				<div class="project py3">
@@ -34,6 +34,8 @@
 
 					</div>
 				</div>
+
+				
 
 
 			<?php } ?>

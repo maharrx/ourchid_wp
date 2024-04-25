@@ -8,7 +8,7 @@
 			<?php the_archive_description(); ?>	
 		</header>
 
-		<section class="clearfix mxn2 py3">	
+		<section class="clearfix mxn2">	
 			<?php while ( have_posts() ) { the_post(); ?>
 
 				<div class="md-col md-col-6 lg-col-4 px2 my3">
