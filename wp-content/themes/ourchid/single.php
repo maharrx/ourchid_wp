@@ -25,7 +25,9 @@ get_header(); ?>
 				<header class="hero">
 					<?php if( has_post_thumbnail() ):?>
 						<div class="featured-image fullwidth">
-							<?php the_post_thumbnail('full', array('class' => 'block mx-auto')); ?>
+							<figure>
+								<?php the_post_thumbnail('full', array('class' => 'block mx-auto')); ?>
+							</figure>
 						</div>
 					<?php endif; ?>
 
