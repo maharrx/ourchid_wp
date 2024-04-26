@@ -32,8 +32,8 @@
 	.max-width-4{ min-width: 360px;}
 	.navbar{background: rgba(255, 255, 255, 0);backdrop-filter: blur(20px); }
 	.navbar li a{ text-transform: uppercase; border-bottom: 1px solid transparent;}
-	.navbar li a:hover, .navbar li a:active{ border-color: var(--color-primary);}
-
+	.navbar li a:hover, .navbar li.current-menu-item a, .navbar li a:active{ border-color: var(--color-primary);}
+	
 	
 	h1.title{ font-size: 4em; font-weight:800; line-height: 1.25; 
 		/* background-image: var(--text-gredient);background-size: 100%;background-repeat: repeat;-webkit-background-clip: text;-webkit-text-fill-color: transparent; -moz-background-clip: text;-moz-text-fill-color: transparent; */
