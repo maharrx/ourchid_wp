@@ -45,7 +45,7 @@ get_header(); ?>
 		<?php  else: ?>
 			<!-- // If no content, include the "No posts found" template.
 			// get_template_part( 'template-parts/content/content-none' ); -->
-			<section class="clearfix py3">	
+			<section class="clearfix">	
 				<?php echo "No content found!"; ?>
 			</section>
 		<?php endif; ?>
