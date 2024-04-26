@@ -35,7 +35,7 @@
 	.navbar li a:hover, .navbar li a:active{ border-color: var(--color-primary);}
 
 	
-	h1.huge{ font-size: 4em; font-weight:800; line-height: 1.5; 
+	h1.title{ font-size: 4em; font-weight:800; line-height: 1.25; 
 		/* background-image: var(--text-gredient);background-size: 100%;background-repeat: repeat;-webkit-background-clip: text;-webkit-text-fill-color: transparent; -moz-background-clip: text;-moz-text-fill-color: transparent; */
 	}    
 	.shadow{box-shadow: var(--text-shadow);}
@@ -55,8 +55,8 @@
 
 	@media only screen and (min-width: 52em){ /* breakpoint-md */
 		html, body{background: var(--gredient-md)}
-		h2, .h2{ font-size: 1.6em;}
-		h1.huge{ font-size: 9em; text-shadow: var(--text-shadow)}
+		/* h2, .h2{ font-size: 1.6em;} */
+		h1.title{ font-size: 9em; text-shadow: var(--text-shadow)}
 		.excerpt{ padding:4rem };
 			/* text-shadow: var(--text-shadow);background-image: var(--text-gredient-md); }    */
 		/* #research img{ height:100%; width: 100%; object-fit: cover;} */
@@ -64,9 +64,9 @@
 
 	@media only screen and (min-width: 64em){ /* breakpoint-lg */
 		html, body{ font-size: 1.1em;}
-		h1, .h1{ font-size: 3.5em;}   
-		h2, .h2{ font-size: 1.8em;}               
-		h1.huge{ font-size: 10.5em;font-weight: 800; text-shadow: var(--text-shadow);}   
+		/* h1, .h1{ font-size: 3.5em;}    */
+		h1.title{ font-size: 10.5em;font-weight: 800; text-shadow: var(--text-shadow);}   
+		.subtitle{ font-size: 1.8em;}               
 		.excerpt{ padding:4rem };
 	}
 
