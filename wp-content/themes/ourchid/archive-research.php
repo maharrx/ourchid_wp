@@ -18,7 +18,7 @@
 							<div class="lg-col-6 flex border-box">
 								<div class="col-12">
 									<?php if( has_post_thumbnail() ):?>
-										<?php the_post_thumbnail('full', array('class' => 'block mx-auto')); ?>
+										<a class="" href="<?php the_permalink(); ?>"><?php the_post_thumbnail('full', array('class' => 'block mx-auto')); ?></a>
 									<?php else: ?>
 										<p class="mx-auto flex-auto block"><?php the_title(); ?></p>
 									<?php endif; ?>
