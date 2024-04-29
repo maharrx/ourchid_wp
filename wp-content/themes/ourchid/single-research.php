@@ -50,13 +50,13 @@ get_header(); ?>
 
 							<?php if ( $the_query->have_posts() ):?>
 								<div class="clearfix">
-									<h2 class="m0 p0 pb3">Investigators</h2>
+									<h2 class="m0 p0">Investigators</h2>
 								</div>
 									<!-- // Load posts loop. -->
 								<div class="clearfix mxn3 pb3">
 									<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>	
 									
-										<div class="center col col-sm-4 col-md-12 px3">
+										<div class="center col col-sm-4 col-md-12 p3">
 											
 											<figure class="circle mx-auto">                           
 												<?php if( has_post_thumbnail() ):?>
