@@ -53,10 +53,11 @@ get_header(); ?>
 							</div>
 							
 							<!-- // Load posts loop. -->
-							<div class="investigators clearfix mxn3 pb3">
+							<div class="investigators clearfix mxn2 pb3">
+								
 								<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>	
 									
-									<div class="center col col-sm-4 col-md-12 px3">
+									<div class="center col col-sm-4 col-md-12 px2 mb3">
 
 										<div class="bg-default shadow p3 center">
 						
