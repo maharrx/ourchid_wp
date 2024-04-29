@@ -42,14 +42,18 @@ get_header(); ?>
 
 					<!-- show the investigators of this research project -->
 					<div class="sm-col sm-col-12 md-col-12 lg-col-3 px3 pb3">
+
 						<?php
-							$entries = get_post_meta( get_the_ID(), 'investigators_select', true );
-							$the_query = new WP_Query(array('post_type' => 'members','post__in' => $entries));
+							$pi  = get_post_meta( get_the_ID(), 'PI_select', true );
+							$co_pis = get_post_meta( get_the_ID(), 'investigators_select', true );							
 						?>
 
+
+						<?php $the_query = new WP_Query(array('post_type' => 'members','post__in' => $co_pis)); ?>
+						
 						<?php if ( $the_query->have_posts() ):?>
 							<div class="clearfix">
-								<h2 class="m0 p0 pb3">Investigators</h2>
+								<h2 class="m0 p0 pb3">Contact</h2>
 							</div>
 							
 							<!-- // Load posts loop. -->
@@ -58,24 +62,26 @@ get_header(); ?>
 								<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>	
 									
 									<div class="center col col-sm-4 col-md-12 px2 mb3">
+										
+										<?php $is_pi = get_the_id() == $pi ? "pi" : " ";?>
 
-										<div class="bg-default shadow p3 center">
-						
-											<div class="">
-												<figure class="circle mx-auto">                           
-													<?php if( has_post_thumbnail() ):?>
-														<?php the_post_thumbnail('medium', array('class' => 'block mx-auto circle')); ?>
-													<?php else: ?>
-														<p class="mx-auto flex-auto block"><?php the_title(); ?></p>
-													<?php endif; ?>
-												</figure>
-											</div>
+										<div class="profile bg-default shadow py3 px2 center <?php echo $is_pi; ?> ">
+																	
+											<figure class="circle mx-auto">                           
+												<?php if( has_post_thumbnail() ):?>
+													<?php the_post_thumbnail('medium', array('class' => 'block mx-auto circle')); ?>
+												<?php else: ?>
+													<p class="mx-auto flex-auto block"><?php the_title(); ?></p>
+												<?php endif; ?>
+											</figure>											
 												
 											<div class=" center">
 												<h4 class="m0 mb2"><?php the_title(); ?></h4>
 												<?php the_content(); ?>
 											</div>
 											
+											<?php //if (get_the_id() == $pi) {echo '<span class="pi"> </span>';}?>
+
 										</div>	
 
 									</div>

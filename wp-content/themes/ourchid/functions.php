@@ -114,7 +114,7 @@ function investigator_register_metabox() {
     $cmb = new_cmb2_box( array(
         'id'           => 'investigarors',
         'title'        => 'Investigarors',
-        'object_types' => array( 'post', 'research' ), // post type
+        'object_types' => array( 'research' ), // post type
         'context'      => 'side', //  'normal', 'advanced', or 'side'
         'priority'     => 'low',  //  'high', 'core', 'default' or 'low'
         'show_names'   => true, // Show field names on the left
@@ -133,14 +133,30 @@ function investigator_register_metabox() {
     }
 
     $cmb->add_field( array(
-        // 'name'             => 'Test Select',
-        'desc'             => 'Select Investigator(s)',
+        'name'             => 'Primary Investigator',
+        'desc'             => 'Select Primary Investigator',
+        'id'               => 'PI_select',
+        'cmb_styles'        => false, // false to disable the CMB stylesheet
+        'type'             => 'select',
+        'show_option_none' => true,
+        'default'          => 'custom',
+        'options'          => $pageArray
+    ) );
+
+    $cmb->add_field( array(
+        'name'             => 'Other Investigator(s)',
+        'desc'             => 'Other Investigator(s)',
         'id'               => 'investigators_select',
+        'cmb_styles'        => false, // false to disable the CMB stylesheet
         'type'             => 'multicheck',
         'show_option_none' => false,
         'default'          => 'custom',
         'options'          => $pageArray
     ) );
+
+
+
+
 
 }
 
