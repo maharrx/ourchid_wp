@@ -50,7 +50,7 @@ get_header(); ?>
 
 							<?php if ( $the_query->have_posts() ):?>
 								<div class="clearfix">
-									<h2 class="m0 p0">Investigators</h2>
+									<h2 class="m0 p0 pb3">Investigators</h2>
 								</div>
 									<!-- // Load posts loop. -->
 								<div class="clearfix mxn3 pb3">
