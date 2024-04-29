@@ -36,12 +36,12 @@ get_header(); ?>
 				
 				<section class="clearfix mxn3">	
 					
-						<div class="sm-col sm-col-12 md-col-9 px3 pb3">
+						<div class="sm-col sm-col-12 md-col-12 lg-col-9 px3 pb3">
 							<?php the_content(); ?>
 						</div>
 
 						<!-- show the investigators of this research project -->
-						<div class="sm-col sm-col-12 md-col-3 px3 pb3">
+						<div class="investigators sm-col sm-col-12 md-col-12 lg-col-3 px3 pb3">
 							<?php
 								$entries = get_post_meta( get_the_ID(), 'investigators_select', true );
 								// print_r($entries);
@@ -49,11 +49,14 @@ get_header(); ?>
 							?>
 
 							<?php if ( $the_query->have_posts() ):?>
-								<!-- // Load posts loop. -->
-								<h2 class="m0 px3 pb3">Investigators</h2>
+								<div class="clearfix">
+									<h2 class="m0 p0 pb3">Investigators</h2>
+								</div>
+									<!-- // Load posts loop. -->
+
 								<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>	
 									
-									<div class="investigators clearfix mxn3 pb3">
+									<div class="clearfix mxn3 pb3">
 										
 										<div class="center col col-sm-4 col-md-12 px3">
 											
