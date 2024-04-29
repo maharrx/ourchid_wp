@@ -54,6 +54,11 @@
 
 	.sidebar{ min-width: 30vh;}
 
+	.investigators p{ margin-bottom: 0; font-size: small;}
+	.investigators h4{font-weight: normal;}
+	.investigators figure{ background-color: var(--color-primary); max-width: 100px;}
+
+
 	@media only screen and (min-width: 52em){ /* breakpoint-md */
 		html, body{background: var(--gredient-md)}
 		/* h2, .h2{ font-size: 1.6em;} */

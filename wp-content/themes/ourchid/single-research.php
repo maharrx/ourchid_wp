@@ -34,53 +34,65 @@ get_header(); ?>
 					<?php the_title('<h1>', '</h1>'); ?>
 				</header>
 				
-				<section class="clearfix">	
-					<div class="clearfix">
-						<div class="sm-col sm-col-12 md-col-8">
+				<section class="clearfix mxn3">	
+					
+						<div class="sm-col sm-col-12 md-col-9 px3 pb3">
 							<?php the_content(); ?>
 						</div>
-						<div class="sm-col sm-col-12 md-col-4">
+
+						<!-- show the investigators of this research project -->
+						<div class="sm-col sm-col-12 md-col-3 px3 pb3">
 							<?php
 								$entries = get_post_meta( get_the_ID(), 'investigators_select', true );
 								// print_r($entries);
 								$the_query = new WP_Query(array('post_type' => 'members','post__in' => $entries));
-
-								// The Loop.
-								if ( $the_query->have_posts() ) {
-									
-									while ( $the_query->have_posts() ) {
-										$the_query->the_post();
-										// echo '<li>' . esc_html( get_the_title() ) . '</li>';
-										
-										echo '<h2><a href="' . get_permalink() . '">' . get_the_title() . '</a></h2>';
-										echo get_the_post_thumbnail( get_the_ID(), 'full' );
-										$content = apply_filters( 'the_content', get_the_content() );
-										echo $content;
-
-									}
-									
-								} else {
-									esc_html_e( 'Sorry, no posts matched your criteria.' );
-								}
-								// Restore original Post Data.
-								wp_reset_postdata();
-
 							?>
+
+							<?php if ( $the_query->have_posts() ):?>
+								<!-- // Load posts loop. -->
+								<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>	
+									
+									<div class="investigators clearfix mxn3 pb3">
+										<h2 class="m0 px3 pb3">Investigators</h2>
+										
+										<div class="center col col-sm-4 col-md-12 px3">
+											
+											<figure class="circle mx-auto">                           
+												<?php if( has_post_thumbnail() ):?>
+													<?php the_post_thumbnail('thumbnail', array('class' => 'block mx-auto circle')); ?>
+												<?php else: ?>
+													<p class="mx-auto flex-auto block"><?php the_title(); ?></p>
+												<?php endif; ?>
+											</figure>
+											
+											<?php the_title('<h4 class="p0 pb1 m0">', '</h4>'); ?>
+											
+											<?php the_content(); ?>
+
+										</div>
+										
+
+									</div>		
+
+								<?php endwhile; ?>				
+
+							<?php  else: ?>
+								<?php echo "No content found!"; ?>								
+							<?php endif; ?>
+
 						</div>
 
-					</div>
+					
 				</section>	
-				<!-- // get_template_part( 'template-parts/content/content', get_theme_mod( 'display_excerpt_or_full_post', 'excerpt' ) ); -->
-				<!-- // the_title(); -->
+				
 			<?php endwhile; ?>				
-			<!-- // Previous/next page navigation.
-			// twenty_twenty_one_the_posts_navigation(); -->
+			
 		<?php  else: ?>
-			<!-- // If no content, include the "No posts found" template.
-			// get_template_part( 'template-parts/content/content-none' ); -->
+			
 			<section class="clearfix">	
 				<?php echo "No content found!"; ?>
 			</section>
+
 		<?php endif; ?>
 
 	</div>	
