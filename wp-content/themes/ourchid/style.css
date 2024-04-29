@@ -64,19 +64,19 @@
 
 	@media only screen and (min-width: 52em){ /* breakpoint-md */
 		/* html, body{background: var(--gredient-md)} */
-		/* h2, .h2{ font-size: 1.6em;} */
+		h2, .h2{ font-size: 1.6em;}
 		h1.title{ font-size: 9em; text-shadow: var(--text-shadow)}
-		/* .excerpt{ padding:4rem }; */
+		.excerpt{ padding:4rem };
 			/* text-shadow: var(--text-shadow);background-image: var(--text-gredient-md); }    */
 		/* #research img{ height:100%; width: 100%; object-fit: cover;} */
 	}
 
 	@media only screen and (min-width: 64em){ /* breakpoint-lg */
 		/* html, body{ font-size: 1.1em;} */
-		/* h1, .h1{ font-size: 3.5em;}    */
+		h1, .h1{ font-size: 3.5em;}   
 		h1.title{ font-size: 10.5em;font-weight: 800; text-shadow: var(--text-shadow);}   
-		/* .subtitle{ font-size: 1.8em;}                */
-		/* .excerpt{ padding:4rem }; */
+		.subtitle{ font-size: 1.8em;}               
+		.excerpt{ padding:4rem };
 
 	}
 
