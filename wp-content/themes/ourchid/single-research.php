@@ -50,23 +50,21 @@ get_header(); ?>
 						
 						<h2 class="m0 p0 pb3">Contact</h2>	
 						
-						<!-- pi  -->
-						<?php 
-							$pi  = get_post_meta( get_the_ID(), 'PI_select', true );
-							$the_query = new WP_Query(array('post_type' => 'members','post__in' => array($pi)) ); 
-						?>
-
 						<div class="investigators clearfix mxn2 pb3">
 
-							<?php if ( $the_query->have_posts() ):?>
+
+							<?php 
+								//the PI
+								$pi = get_post_meta( get_the_ID(), 'PI_select', true );							
+								$pi_query = new WP_Query(array('post_type' => 'members','post__in' => array ($pi)) );
+							?>
+							<?php if ( $pi_query->have_posts() ):?>
 								
-								<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>	
+								<?php while ( $pi_query->have_posts() ) : $pi_query->the_post(); ?>	
 									
 									<div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
-										
-										<?php $is_pi = get_the_id() == $pi ? "pi" : " ";?>
 
-										<div class="profile bg-default shadow py3 px2 center <?php echo $is_pi; ?> ">
+										<div class="profile bg-default shadow py3 px2 center pi">
 																	
 											<figure class="circle mx-auto">                           
 												<?php if( has_post_thumbnail() ):?>
@@ -87,30 +85,30 @@ get_header(); ?>
 
 									</div>
 
-								<?php endwhile; ?>				
+								<?php 
+									endwhile; 
+									wp_reset_query();  
+								?>				
 
 							<?php  else: ?>
-								<?php echo "No content found!"; ?>								
+								<?php echo "No content found!"; ?>							
 							<?php endif; ?>
 
 
 
+							<?php 
+								//Co-PIs
+								$co_pis = get_post_meta( get_the_ID(), 'investigators_select', true );							
+								$co_pis_query = new WP_Query(array('post_type' => 'members','post__in' => $co_pis));
+							?>
 
-						<!-- co-pis -->
-						<?php 
-							$co_pis = get_post_meta( get_the_ID(), 'investigators_select', true );
-							$the_query = new WP_Query(array('post_type' => 'members','post__not_in' => array($pi)) ); 
-						?>
-						
-							<?php if ( $the_query->have_posts() ):?>
+							<?php if ( $co_pis_query->have_posts() ):?>
 								
-								<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>	
+								<?php while ( $co_pis_query->have_posts() ) : $co_pis_query->the_post(); ?>	
 									
 									<div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
-										
-										<?php $is_pi = get_the_id() == $pi ? "pi" : " ";?>
 
-										<div class="profile bg-default shadow py3 px2 center <?php echo $is_pi; ?> ">
+										<div class="profile bg-default shadow py3 px2 center">
 																	
 											<figure class="circle mx-auto">                           
 												<?php if( has_post_thumbnail() ):?>
@@ -131,11 +129,15 @@ get_header(); ?>
 
 									</div>
 
-								<?php endwhile; ?>				
-								
+								<?php 
+									endwhile; 
+									wp_reset_query();
+								?>				
+
 							<?php  else: ?>
-								<?php echo "No content found!"; ?>								
+								<?php echo "No content found!"; ?>							
 							<?php endif; ?>
+				
 
 					</div>	
 
