@@ -23,7 +23,8 @@
 
 <?php wp_body_open(); ?>
 
-<nav class="navbar clearfix px3 z4 sticky">
+
+<nav class="navbar px3 z4 sticky">
 	<div class="max-width-4 mx-auto flex items-center" >	
 		
 		<div class="navbar-brand flex-auto">		
@@ -52,10 +53,11 @@
 		<div role="button" aria-label="open sidebar" on="tap:sidebar.toggle" tabindex="0" class="sm-hide md-hide lg-hide">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="block"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
 		</div>
-	
-	</div>
+
+	</div>	
 </nav>
-		
+
+
 
 	<!-- mobile navigation sidebar -->
 	<amp-sidebar id="sidebar" layout="nodisplay" side="right" class="">

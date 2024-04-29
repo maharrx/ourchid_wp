@@ -61,7 +61,7 @@ get_header(); ?>
 								
 								<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>	
 									
-									<div class="center col col-sm-4 col-md-12 px2 mb3">
+									<div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
 										
 										<?php $is_pi = get_the_id() == $pi ? "pi" : " ";?>
 
