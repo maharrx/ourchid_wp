@@ -12,7 +12,7 @@
 			<?php while ( have_posts() ) { the_post(); ?>
 
 				<div class="md-col md-col-6 lg-col-4 px2 my3">
-					<div class="profile bg-default shadow p3 center">                            
+					<div class="profile bg-default shadow p3 center">
 						
 						<div class="p2">
 							<figure class="circle mx-auto">                           

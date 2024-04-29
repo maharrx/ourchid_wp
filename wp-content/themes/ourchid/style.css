@@ -55,7 +55,7 @@
 	.sidebar{ min-width: 30vh;}
 
 	.investigators p{ margin-bottom: 0; font-size: small;}
-	.investigators h4{font-weight: normal;}
+	.investigators h4{font-weight: normal; font-size: small; font-weight: 600;}
 	.investigators figure{ background-color: var(--color-primary); max-width: 100px;}
 
 
