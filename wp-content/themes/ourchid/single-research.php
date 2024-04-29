@@ -22,6 +22,7 @@ get_header(); ?>
 		<?php if ( have_posts() ):?>
 			<!-- // Load posts loop. -->
 			<?php while ( have_posts() ) : the_post(); ?>	
+				
 				<header class="hero">
 					<?php if( has_post_thumbnail() ):?>
 						<div class="featured-image fullwidth">
@@ -40,24 +41,24 @@ get_header(); ?>
 						<?php the_content(); ?>
 					</div>
 
+					
+
+					
+
 					<!-- show the investigators of this research project -->
 					<div class="sm-col sm-col-12 md-col-12 lg-col-3 px3 pb3">
-
-						<?php
+						
+						<h2 class="m0 p0 pb3">Contact</h2>	
+						
+						<!-- pi  -->
+						<?php 
 							$pi  = get_post_meta( get_the_ID(), 'PI_select', true );
-							$co_pis = get_post_meta( get_the_ID(), 'investigators_select', true );							
+							$the_query = new WP_Query(array('post_type' => 'members','post__in' => array($pi)) ); 
 						?>
 
+						<div class="investigators clearfix mxn2 pb3">
 
-						<?php $the_query = new WP_Query(array('post_type' => 'members','post__in' => $co_pis)); ?>
-						
-						<?php if ( $the_query->have_posts() ):?>
-							<div class="clearfix">
-								<h2 class="m0 p0 pb3">Contact</h2>
-							</div>
-							
-							<!-- // Load posts loop. -->
-							<div class="investigators clearfix mxn2 pb3">
+							<?php if ( $the_query->have_posts() ):?>
 								
 								<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>	
 									
@@ -87,14 +88,57 @@ get_header(); ?>
 									</div>
 
 								<?php endwhile; ?>				
-							</div>		
 
-						<?php  else: ?>
-							<?php echo "No content found!"; ?>								
-						<?php endif; ?>
+							<?php  else: ?>
+								<?php echo "No content found!"; ?>								
+							<?php endif; ?>
 
-					</div>
-					
+
+
+
+						<!-- co-pis -->
+						<?php 
+							$co_pis = get_post_meta( get_the_ID(), 'investigators_select', true );
+							$the_query = new WP_Query(array('post_type' => 'members','post__not_in' => array($pi)) ); 
+						?>
+						
+							<?php if ( $the_query->have_posts() ):?>
+								
+								<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>	
+									
+									<div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
+										
+										<?php $is_pi = get_the_id() == $pi ? "pi" : " ";?>
+
+										<div class="profile bg-default shadow py3 px2 center <?php echo $is_pi; ?> ">
+																	
+											<figure class="circle mx-auto">                           
+												<?php if( has_post_thumbnail() ):?>
+													<?php the_post_thumbnail('medium', array('class' => 'block mx-auto circle')); ?>
+												<?php else: ?>
+													<p class="mx-auto flex-auto block"><?php the_title(); ?></p>
+												<?php endif; ?>
+											</figure>											
+												
+											<div class=" center">
+												<h4 class="m0 mb2"><?php the_title(); ?></h4>
+												<?php the_content(); ?>
+											</div>
+											
+											<?php //if (get_the_id() == $pi) {echo '<span class="pi"> </span>';}?>
+
+										</div>	
+
+									</div>
+
+								<?php endwhile; ?>				
+								
+							<?php  else: ?>
+								<?php echo "No content found!"; ?>								
+							<?php endif; ?>
+
+					</div>	
+
 				</section>	
 				
 			<?php endwhile; ?>				
@@ -106,6 +150,7 @@ get_header(); ?>
 			</section>
 
 		<?php endif; ?>
+
 
 	</div>	
 </main>
