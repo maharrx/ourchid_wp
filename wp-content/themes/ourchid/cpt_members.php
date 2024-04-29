@@ -22,7 +22,7 @@ function members_post_type() {
 
      $template = array(        
                 // array( 'core/image', array() ),
-                array( 'core/paragraph', array('placeholder' => 'Email') )
+                array( 'core/paragraph', array('placeholder' => 'Email') ),
                 array( 'core/paragraph', array('placeholder' => 'Position') ),
                 array( 'core/paragraph', array('placeholder' => 'Affiliation') ),
     );
