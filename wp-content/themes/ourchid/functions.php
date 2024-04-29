@@ -102,3 +102,45 @@ add_filter('get_the_archive_title', function ($title) {
 require get_template_directory().'/cpt_members.php';
 require get_template_directory().'/cpt_research.php';
 
+
+
+
+
+//enable selecition of members as investigators in research projects
+add_action( 'cmb2_admin_init', 'investigator_register_metabox' );
+
+function investigator_register_metabox() {
+
+    $cmb = new_cmb2_box( array(
+        'id'           => 'investigarors',
+        'title'        => 'Investigarors',
+        'object_types' => array( 'post', 'research' ), // post type
+        'context'      => 'side', //  'normal', 'advanced', or 'side'
+        'priority'     => 'low',  //  'high', 'core', 'default' or 'low'
+        'show_names'   => true, // Show field names on the left
+    ) );
+
+
+    $args = array('post_type' => 'members', 'post_per_page' => -1);
+    $loop = new WP_Query($args);
+    if($loop->have_posts()) {  
+        while($loop->have_posts()) : $loop->the_post();
+            //
+            $varID = get_the_id();
+            $varName = get_the_title();
+            $pageArray[$varID]=$varName;
+        endwhile;   
+    }
+
+    $cmb->add_field( array(
+        // 'name'             => 'Test Select',
+        'desc'             => 'Select Investigator(s)',
+        'id'               => 'investigators_select',
+        'type'             => 'multicheck',
+        'show_option_none' => false,
+        'default'          => 'custom',
+        'options'          => $pageArray
+    ) );
+
+}
+
