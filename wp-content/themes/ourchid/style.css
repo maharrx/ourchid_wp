@@ -54,12 +54,15 @@
 
 	.sidebar{ min-width: 30vh;}
 
-	.investigators p{ margin-bottom: 0; font-size: 0.7em;}
-	.investigators h4{font-weight: normal; font-size: small; font-weight: 600;}
-	.investigators figure{ background-color: var(--color-primary); max-width: 100px;}
-	.investigators .profile{border-bottom: 2px solid transparent;}
-	.investigators .profile.pi{border-color: var(--color-primary);}
-
+	.sidebar p{ margin-bottom: 0; font-size: 0.7em;}
+	.sidebar h4{font-weight: normal; font-size: small; font-weight: 600;}
+	.sidebar figure{ background-color: var(--color-primary); max-width: 100px;}
+	
+	
+	.sidebar .profile{border-bottom: 2px solid transparent;}
+	.sidebar .profile.pi{border-color: var(--color-primary);}
+	
+	.sidebar .funding img{ width: 100%; height: auto;}
 
 
 	@media only screen and (min-width: 52em){ /* breakpoint-md */

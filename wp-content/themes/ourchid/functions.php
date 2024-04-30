@@ -106,7 +106,7 @@ require get_template_directory().'/cpt_research.php';
 
 
 
-//enable selecition of members as investigators in research projects
+//enable selecition of PIs as Co-PIs in research projects
 add_action( 'cmb2_admin_init', 'investigator_register_metabox' );
 
 function investigator_register_metabox() {
@@ -120,7 +120,7 @@ function investigator_register_metabox() {
         'show_names'   => true, // Show field names on the left
     ) );
 
-
+    // get the members
     $args = array('post_type' => 'members', 'post_per_page' => -1);
     $loop = new WP_Query($args);
     if($loop->have_posts()) {  
@@ -131,32 +131,137 @@ function investigator_register_metabox() {
             $pageArray[$varID]=$varName;
         endwhile;   
     }
-
+    // Select PI from the members
     $cmb->add_field( array(
         'name'             => 'Primary Investigator',
         'desc'             => 'Select Primary Investigator',
         'id'               => 'PI_select',
-        'cmb_styles'        => false, // false to disable the CMB stylesheet
+        'cmb_styles'        => false, 
         'type'             => 'select',
         'show_option_none' => true,
         'default'          => 'custom',
         'options'          => $pageArray
     ) );
 
+    // Select primary co-PIs from the members
     $cmb->add_field( array(
         'name'             => 'Other Investigator(s)',
         'desc'             => 'Other Investigator(s)',
         'id'               => 'investigators_select',
-        'cmb_styles'        => false, // false to disable the CMB stylesheet
+        'cmb_styles'        => false, 
         'type'             => 'multicheck',
         'show_option_none' => false,
         'default'          => 'custom',
         'options'          => $pageArray
     ) );
 
+}
 
+
+//enable funding
+
+
+add_action( 'cmb2_admin_init', 'funding_register_metabox' );
+
+function funding_register_metabox() {
+
+    $cmb = new_cmb2_box( array(
+		'id'            => 'funding_repeater',  // Belgrove Bouncing Castles
+		'title'         => 'Funding',
+		'object_types'  => array( 'research', ), // Post type
+		'context'       => 'normal',
+		'priority'      => 'high',
+		'show_names'    => false, // Show field names on the left
+	) );
+
+
+    $group_field_id = $cmb->add_field( array(
+        'id'          => 'funding_repeat_group',
+        'type'        => 'group',
+        // 'description' => __( 'Generates reusable form entries', 'cmb2' ),
+        // 'repeatable'  => false, // use false if you want non-repeatable group
+        'options'     => array(
+            'group_title'       => __( 'Funding {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
+            'add_button'        => __( 'Add Another Entry', 'cmb2' ),
+            'remove_button'     => __( 'Remove Entry', 'cmb2' ),
+            'sortable'          => true,
+            'closed'         => false, // true to have the groups closed by default
+            // 'remove_confirm' => esc_html__( 'Are you sure you want to remove?', 'cmb2' ), // Performs confirmation before removing group.
+        ),
+    ) );
+    
+    // Id's for group's fields only need to be unique for the group. Prefix is not needed.
+    $cmb->add_group_field( $group_field_id, array(
+        'name' => 'Funding Title',
+        'id'   => 'title',
+        'type' => 'text',
+        // 'repeatable' => true, // Repeatable fields are supported w/in repeatable groups (for most types)
+    ) );
+    
+    $cmb->add_group_field( $group_field_id, array(
+        'name' => 'URL',
+        'description' => 'URL of the funding',
+        'id'   => 'url',
+        'type' => 'text_url',
+    ) );
+    
+    $cmb->add_group_field( $group_field_id, array(
+        'name' => 'Entry Image',
+        'id'   => 'image',
+        'type' => 'file',
+        'options' => array(
+            'url' => false, // Hide the text input for the url
+        )
+    ) );
+
+
+    // // Add funding
+    // $funding_group_id = $cmb->add_field( array(
+	// 	'id'          => 'funding_source',
+	// 	'type'        => 'group',
+	// 	'repeatable'  => true,
+	// 	'options'     => array(
+	// 		'group_title'   => 'Funding {#}',
+	// 		'add_button'    => 'Add Another Funding',
+	// 		'remove_button' => 'Remove Funding',
+	// 		'closed'        => false,  // Repeater fields closed by default - neat & compact.
+	// 		'sortable'      => true,  // Allow changing the order of repeated groups.
+    //         'remove_confirm' => esc_html__( 'Are you sure you want to remove this?', 'cmb2' ), // Performs confirmation before removing group.
+            
+	// 	),
+	// ) );
+
+    // $cmb->add_group_field( $funding_group_id, array(
+	// 	// 'name' => 'Funding Source',
+	// 	'desc' => 'Enter the title for the Funding.',
+	// 	'id'   => 'title',
+	// 	'type' => 'text',
+	// ) );
+	
+    // $cmb->add_group_field( $funding_group_id, array(
+	// 	// 'name' => 'Funding URL',
+	// 	'desc' => 'Enter the url of the funding.',
+	// 	'id'   => 'url',
+	// 	'type' => 'text_url',
+	// ) );
+    
+    // $cmb->add_group_field( $funding_group_id, array(
+    //     // 'name' => 'Funding image',
+    //     'desc' => 'Upload an image/logo of the funding',
+    //     'id'   => 'image',
+    //     'type' => 'file_list',
+    //     'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
+    //     'query_args' => array( 'type' => 'image' ), // Only images attachment
+    //     // Optional, override default text strings
+    //     'text' => array(
+    //         'add_upload_files_text' => '+', // default: "Add or Upload Files"
+    //         'remove_image_text' => 'Remove', // default: "Remove Image"
+    //         'file_text' => 'Replacement', // default: "File:"
+    //         // 'file_download_text' => 'Replacement', // default: "Download"
+    //         'remove_text' => 'Remove', // default: "Remove"
+    //     ),
+    // ) );
 
 
 
 }
-
