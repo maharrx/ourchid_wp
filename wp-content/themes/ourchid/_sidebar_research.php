@@ -30,7 +30,7 @@
         ?>      
                                 
         <div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
-            <a class="block border border-light" href="<?php echo $url; ?>" target="_blank">
+            <a class="block border p2 bg-default border-light" href="<?php echo $url; ?>" target="_blank">
                 <?php echo ($img); ?>
             </a>
         </div>
