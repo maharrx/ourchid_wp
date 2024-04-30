@@ -94,7 +94,7 @@ get_header(); ?>
 
 						<!-- show the investigators of this research project -->
 						<div class="investigators clearfix mxn2 pb4">
-						<h2 class="m0 px2 pb3">Investigators</h2>
+							<h2 class="m0 px2 pb3">Investigators</h2>
 
 							<?php 
 								//the PI
@@ -180,7 +180,7 @@ get_header(); ?>
 							<?php  else: ?>
 								<?php echo "No content found!"; ?>							
 							<?php endif; ?>
-				
+						</div>		
 
 					</div>	
 
