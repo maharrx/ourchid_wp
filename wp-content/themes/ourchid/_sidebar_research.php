@@ -63,7 +63,7 @@
 
                 <div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
 
-                    <div class="profile bg-default border border-light py3 px2 center pi">
+                    <div class="profile bg-default border border-light py3 px2 center relative">
 
                         <div class="px3">
                             <figure class="circle mx-auto">                           
@@ -78,9 +78,9 @@
                             <h4 class="m0 mb2"><?php the_title(); ?></h4>
                             <?php the_content(); ?>
                         </div>
-                            
                         <?php //if (get_the_id() == $pi) {echo '<span class="pi"> </span>';}?>
-
+                    
+                        <span class="pi"></span>                    
                     </div>  <!--end profile -->
 
                 </div><!--end profile wrap-->
