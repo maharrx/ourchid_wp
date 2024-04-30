@@ -107,7 +107,7 @@ get_header(); ?>
 									
 									<div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
 
-										<div class="profile bg-default border boder-light py3 px2 center pi">
+										<div class="profile bg-default shadow py3 px2 center pi">
 																	
 											<figure class="circle mx-auto">                           
 												<?php if( has_post_thumbnail() ):?>
@@ -151,7 +151,7 @@ get_header(); ?>
 									
 									<div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
 
-										<div class="profile bg-default border boder-light py3 px2 center">
+										<div class="profile bg-default shadow py3 px2 center">
 																	
 											<figure class="circle mx-auto">                           
 												<?php if( has_post_thumbnail() ):?>
