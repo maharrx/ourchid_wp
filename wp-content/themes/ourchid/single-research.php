@@ -32,12 +32,15 @@ get_header(); ?>
 						</div>
 					<?php endif; ?>
 
-					<?php the_title('<h1>', '</h1>'); ?>
+					
 				</header>
 				
 				<section class="clearfix mxn3">	
 					
 					<div class="sm-col sm-col-12 md-col-12 lg-col-9 px3 pb3">
+
+						<?php the_title('<h1>', '</h1>'); ?>
+						
 						<?php the_content(); ?>
 					</div>
 
