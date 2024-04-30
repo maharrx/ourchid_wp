@@ -1,5 +1,7 @@
 /wp-config.php
 /.htaccess
 /wp-content/plugins
+
+**/*.png
 **/*.jpg
 **/*.jpDS_Store
