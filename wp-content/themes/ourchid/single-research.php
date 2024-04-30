@@ -37,11 +37,11 @@ get_header(); ?>
 				
 				<section class="clearfix mxn3">	
 					
-					<div class="sm-col sm-col-12 md-col-12 lg-col-9 px3 pb3">
+					<div class="sm-col sm-col-12 md-col-12 lg-col-8 px3 pb3">
 						<?php the_content(); ?>
 					</div>
 
-					<div class="sm-col sm-col-12 md-col-12 lg-col-3 px3 pb3">
+					<div class="sm-col sm-col-12 md-col-12 lg-col-4 px3 pb3">
 						<!-- ger research sidebar-->
 						<?php include get_template_directory() . '/_sidebar_research.php'; ?>
 					</div>

@@ -1,4 +1,4 @@
-<div class="sidebar">
+
 
     <!-- funding start -->
     <div class="funding clearfix mxn2 pb4">
@@ -63,16 +63,17 @@
 
                 <div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
 
-                    <div class="profile bg-default shadow py3 px2 center pi">
+                    <div class="profile bg-default border border-light py3 px2 center pi">
 
-                        <figure class="circle mx-auto">                           
-                            <?php if( has_post_thumbnail() ):?>
-                                <?php the_post_thumbnail('medium', array('class' => 'block mx-auto circle')); ?>
-                            <?php else: ?>
-                                <p class="mx-auto flex-auto block"><?php the_title(); ?></p>
-                            <?php endif; ?>
-                        </figure>              
-                            
+                        <div class="px3">
+                            <figure class="circle mx-auto">                           
+                                <?php if( has_post_thumbnail() ):?>
+                                    <?php the_post_thumbnail('medium', array('class' => 'block mx-auto circle')); ?>
+                                <?php else: ?>
+                                    <p class="mx-auto flex-auto block"><?php the_title(); ?></p>
+                                <?php endif; ?>
+                            </figure>              
+                        </div>
                         <div class=" center">
                             <h4 class="m0 mb2"><?php the_title(); ?></h4>
                             <?php the_content(); ?>
@@ -109,15 +110,17 @@
 
                 <div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
 
-                    <div class="profile bg-default shadow py3 px2 center">
+                    <div class="profile bg-default border border-light py3 px2 center">
 
-                        <figure class="circle mx-auto">                           
-                            <?php if( has_post_thumbnail() ):?>
-                                <?php the_post_thumbnail('medium', array('class' => 'block mx-auto circle')); ?>
-                            <?php else: ?>
-                                <p class="mx-auto flex-auto block"><?php the_title(); ?></p>
-                            <?php endif; ?>
-                        </figure>                      
+                        <div class="px3">
+                            <figure class="circle mx-auto">                           
+                                <?php if( has_post_thumbnail() ):?>
+                                    <?php the_post_thumbnail('medium', array('class' => 'block mx-auto circle')); ?>
+                                <?php else: ?>
+                                    <p class="mx-auto flex-auto block"><?php the_title(); ?></p>
+                                <?php endif; ?>
+                            </figure>                      
+                        </div>    
                             
                         <div class=" center">
                             <h4 class="m0 mb2"><?php the_title(); ?></h4>
@@ -145,8 +148,6 @@
     <!-- investigators end -->
 
 
-
-</div>
                         
 
      
