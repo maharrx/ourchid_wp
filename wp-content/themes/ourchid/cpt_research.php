@@ -33,7 +33,7 @@ function research_post_type() {
         'has_archive' => true,
         'menu_icon'   => 'dashicons-welcome-learn-more',
         'rewrite' => array('slug' => 'research'),
-        'supports' => array('gutenberg','title', 'editor', 'thumbnail'),
+        'supports' => array('gutenberg','title', 'editor', 'thumbnail', 'excerpt'),
         'show_in_rest' => true,
         'show_ui' => true,
         'show_in_menu' => true,
