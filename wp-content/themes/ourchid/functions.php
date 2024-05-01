@@ -75,13 +75,30 @@ function add_additional_class_on_a( $atts, $item, $args ) {
  }
  add_filter( 'nav_menu_link_attributes', 'add_additional_class_on_a', 1, 3 );
 
+
+ /**
+ * Filter the excerpt length to 50 words.
+ *
+ * @param int $length Excerpt length.
+ * @return int (Maybe) modified excerpt length.
+ */
+function theme_slug_excerpt_length( $length ) {
+    if ( is_admin() ) {
+            return $length;
+    }
+    return 40;
+}
+add_filter( 'excerpt_length', 'theme_slug_excerpt_length', 999 );
+
  
 // Replaces the excerpt "Read More" text by a link
 function new_excerpt_more($more) {
        global $post;
-	return ' <a class="moretag" href="'. get_permalink($post->ID) . '">Read More</a>';
+	return '... <a class="moretag" href="'. get_permalink($post->ID) . '">Read More</a>';
 }
 add_filter('excerpt_more', 'new_excerpt_more');
+
+
 
 
 add_filter('get_the_archive_title', function ($title) {
