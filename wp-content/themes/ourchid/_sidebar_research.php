@@ -39,21 +39,17 @@
 
 
     <!-- investigators start -->
-    <div class="investigators clearfix mxn2 pb4">
-        
-        <h2 class="m0 px2 pb3">Investigators</h2>
-        
-        
-        
-        <?php 
-            //the PI
-            $pi = get_post_meta( get_the_ID(), 'PI_select', true );                         
-            $pi_query = new WP_Query(array('post_type' => 'members','post__in' => array ($pi)) );
-        ?>
+    <?php $pi = get_post_meta( get_the_ID(), 'PI_select', true );?>
 
-        <!-- START SHOW PI -->
-        <?php if ( $pi_query->have_posts() ):?>
-                                        
+    <div class="investigators clearfix mxn2 pb4">
+    
+        <?php if( !empty( $pi ) ) : ?>
+                
+            <h2 class="m0 px2 pb3">Investigators</h2>
+
+            <?php $pi_query = new WP_Query(array('post_type' => 'members','post__in' => array ($pi)) ); ?>
+            <!-- START SHOW PI -->
+                                                
             <?php while ( $pi_query->have_posts() ) : $pi_query->the_post(); ?> 
 
                 <div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb3">
@@ -69,13 +65,14 @@
                                 <?php endif; ?>
                             </figure>              
                         </div>
+                        
                         <div class=" center">
                             <h4 class="m0 mb2"><?php the_title(); ?></h4>
                             <?php the_content(); ?>
                         </div>
-                        <?php //if (get_the_id() == $pi) {echo '<span class="pi"> </span>';}?>
-                    
+                        <?php //if (get_the_id() == $pi) {echo '<span class="pi"> </span>';}?>                            
                         <span class="pi"></span>                    
+                    
                     </div>  <!--end profile -->
 
                 </div><!--end profile wrap-->
@@ -85,21 +82,18 @@
                 wp_reset_query();  
             ?>              
 
-        <?php  else: ?>
-            <?php echo "No content found!"; ?>                          
         <?php endif; ?>
         <!-- END SHOW PI -->
 
 
 
-        <!-- START SHOW CO-PI -->
-        <?php 
-            //the co-PIs
-            $co_pis = get_post_meta( get_the_ID(), 'investigators_select', true );                          
-            $co_pis_query = new WP_Query(array('post_type' => 'members','post__in' => $co_pis));
-        ?>
 
-        <?php if ( $co_pis_query->have_posts() ):?>
+        <!-- START SHOW CO-PI -->
+        <?php $co_pis = get_post_meta( get_the_ID(), 'investigators_select', true );?>
+
+        <?php if( !empty( $co_pis ) ) : ?>
+        
+        <?php $co_pis_query = new WP_Query(array('post_type' => 'members','post__in' => $co_pis));?>
                                 
             <?php while ( $co_pis_query->have_posts() ) : $co_pis_query->the_post(); ?> 
 
@@ -132,11 +126,9 @@
                 endwhile; 
                 wp_reset_query();
             ?>              
-
-        <?php  else: ?>
-            <?php echo "No content found!"; ?>                          
+    
         <?php endif; ?>
-        <!-- END CO-PI -->
+        <!-- END SHOW PI -->
 
 
     </div>
