@@ -11,8 +11,8 @@
 	
 	body{font-family: 'Poppins', sans-serif; color: var(--color-primary);font-size: 1rem; background: var(--gredient); background-attachment: fixed;}
 	/**/
-	h1, .h1{font-weight: 600; font-size: 2.5em; line-height:1.25;}
-	h2, .h2{ font-weight: 600; font-size: 1.4em;}
+	h1, .h1{font-weight: 600; font-size: 2em; line-height:1.25;}
+	h2, .h2{ font-weight: 600; font-size: 1.5em;}
 	h3, .h3{ font-weight: 600; font-size: 1em;}
 	p{ line-height: 1.9; margin: 0 0 1.5rem 0;}
 
@@ -53,7 +53,7 @@
 
 	@media only screen and (min-width: 52em){ /* breakpoint-md */
 		/* html, body{background: var(--gredient-md)} */
-		h2, .h2{ font-size: 1.6em;}
+		/* h2, .h2{ font-size: 1.6em;} */
 		h1.title{ font-size: 9em; text-shadow: var(--text-shadow)}
 		.excerpt{ padding:4rem };
 		/* text-shadow: var(--text-shadow);background-image: var(--text-gredient-md); }    */
@@ -62,7 +62,7 @@
 
 	@media only screen and (min-width: 64em){ /* breakpoint-lg */
 		/* html, body{ font-size: 1.1em;} */
-		h1, .h1{ font-size: 2.5em;}   
+		h1, .h1{ font-size: 2.25em;} 
 		h1.title{ font-size: 10.5em;font-weight: 800; text-shadow: var(--text-shadow);}   
 		.subtitle{ font-size: 1.8em;}               
 		.excerpt{ padding:4rem };
