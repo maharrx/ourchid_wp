@@ -32,6 +32,9 @@ wp-config.php
 # Log files
 *.log
 
+# DS Store
+*.DS_Store
+
 # htaccess
 /.htaccess
 
