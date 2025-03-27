@@ -33,7 +33,7 @@ get_header();
 	    </div>
 	</div> -->
 
-	<main id="about" class="max-width-4 mx-auto px3 flex items-center">  
+	<main id="about" class="home max-width-4 mx-auto px3 flex items-center">  
 		
 		<section>
 			
