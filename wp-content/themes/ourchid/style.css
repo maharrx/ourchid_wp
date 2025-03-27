@@ -6,6 +6,9 @@
 	--color-primary: #22006f;
 	--color-secondary: #daf7ee;
 
+	--color-primary: #000;
+	--color-secondary: #000;
+
 	--text-shadow: 2px 15px 35px rgba(0, 0, 0, 0.5);
 	--gredient: radial-gradient(circle 500px at center 8%, #fff, var(--color-secondary));
 	--gredient-md: radial-gradient(circle 800px at center 10%, #fff, var(--color-secondary));
