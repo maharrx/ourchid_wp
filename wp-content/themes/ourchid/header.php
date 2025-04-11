@@ -24,7 +24,7 @@
 <?php wp_body_open(); ?>
 
 
-<nav class="navbar px3 z4 sticky">
+<nav class="navbar px3 z4 sticky TEST">
 	<div class="container mx-auto flex items-center" >	
 		
 		<div class="navbar-brand flex-auto">		
