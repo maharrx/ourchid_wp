@@ -24,46 +24,47 @@
 <?php wp_body_open(); ?>
 
 
-	<nav class="navbar clearfix px3 relative z4 sticky">
-		<div class="max-width-4 mx-auto flex items-center" >
+<nav class="navbar px3 z4 sticky">
+	<div class="container mx-auto flex items-center" >	
+		
+		<div class="navbar-brand flex-auto">		
+			<a class="h2 block py2" href="<?php echo get_bloginfo( 'url' ); ?>"><?php echo get_bloginfo( 'name' ); ?> Lab</a>
+		</div>		
+		
+		<div class="nav-container">
+			<ul class="navbar-nav list-reset m0 py2 mxn2 sm-show">
+				<?php
+					if ( has_nav_menu( 'primary-menu' ) ) {
 
-			<div class="navbar-brand flex-auto">
-				<a class="h1 title m0" href="<?php echo get_bloginfo( 'url' ); ?>"><?php echo get_bloginfo( 'name' ); ?></a>
-			</div>
-
-			<div class="nav-container">
-				<ul class="navbar-nav list-reset m0 py2 mxn2 xs-hide sm-hide md-show lg-show">
-					<?php
-						if ( has_nav_menu( 'primary-menu' ) ) {
-
-							wp_nav_menu(
-								array(
-									'container'  => '',
-									'items_wrap' => '%3$s',
-									'theme_location' => 'primary-menu',
-								)
-							);
-						} 
-					?>
-				</ul>
-			</div>	
-			
-			<!-- mobile navigation toggle -->
-			<div role="button" aria-label="open sidebar" on="tap:sidebar.toggle" tabindex="0" class="md-hide lg-hide p2">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="block"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
-			</div>
-
+						wp_nav_menu(
+							array(
+								'container'  => '',
+								'items_wrap' => '%3$s',
+								'theme_location' => 'primary-menu',
+								'add_li_class'  => 'inline-block m0 mx2'
+							)
+						);
+					} 
+				?>
+			</ul>
+		</div>	
+		
+		<!-- mobile navigation toggle -->
+		<div role="button" aria-label="open sidebar" on="tap:sidebar.toggle" tabindex="0" class="sm-hide py2">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="36" viewBox="0 0 24 24" class="block"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
 		</div>
-	</nav>
 
-
+	</div>	
+</nav>
 
 
 
 	<!-- mobile navigation sidebar -->
 	<amp-sidebar id="sidebar" layout="nodisplay" side="right" class="">
+							
 		<div role="button" aria-label="close sidebar" on="tap:sidebar.toggle" tabindex="0" class="col-12 py4 center white">✕</div>
-			<ul class="primary-menu list-reset m0 col-12">
+						
+			<ul class="sidebar primary-menu list-reset m0 col-12">
 				<?php
 					if ( has_nav_menu( 'primary-menu' ) ) {
 						wp_nav_menu(
@@ -71,9 +72,11 @@
 								'container'  => '',
 								'items_wrap' => '%3$s',
 								'theme_location' => 'primary-menu',
+								'add_li_class'  => 'block py1 m0 center'
 							)
 						);
 					} 
 				?>
 			</ul>
+			
 	</amp-sidebar>

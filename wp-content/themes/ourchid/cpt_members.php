@@ -14,17 +14,17 @@ function members_post_type() {
          'edit_item' => __("Edit Member"),
          'new_item' => __("New Member"),
          'view_item' => __("View Member"),
-         'search_items' => __("Search People"),
-         'not_found' =>  __("No People Found"),
-         'not_found_in_trash' => __("No People Found in Trash"),
+         'search_items' => __("Search Members"),
+         'not_found' =>  __("No Members Found"),
+         'not_found_in_trash' => __("No Members Found in Trash"),
          'parent_item_colon' => '',
      );
 
      $template = array(        
-                array( 'core/image', array() ),
+                // array( 'core/image', array() ),
+                array( 'core/paragraph', array('placeholder' => 'Email') ),
                 array( 'core/paragraph', array('placeholder' => 'Position') ),
                 array( 'core/paragraph', array('placeholder' => 'Affiliation') ),
-                array( 'core/paragraph', array('placeholder' => 'Link') ),
     );
 
      // Register post type
@@ -35,6 +35,9 @@ function members_post_type() {
         'menu_icon'   => 'dashicons-media-text',
         'rewrite' => array('slug' => 'members'),
         'supports' => array('gutenberg','title', 'editor', 'thumbnail','excerpt'),
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'show_in_nav_menus' => true,
         'show_in_rest' => true,
         'template' => $template,
         'taxonomies' => array( 'type' ),

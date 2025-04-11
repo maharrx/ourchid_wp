@@ -22,6 +22,7 @@ get_header(); ?>
 		<?php if ( have_posts() ):?>
 			<!-- // Load posts loop. -->
 			<?php while ( have_posts() ) : the_post(); ?>	
+				
 				<header class="hero">
 					<?php if( has_post_thumbnail() ):?>
 						<div class="featured-image fullwidth">
@@ -34,21 +35,29 @@ get_header(); ?>
 					<?php the_title('<h1>', '</h1>'); ?>
 				</header>
 				
-				<section class="clearfix">	
-					<?php the_content(); ?>
+				<section class="clearfix mxn3">	
+					
+					<div class="sm-col sm-col-12 md-col-12 lg-col-9 px3 pb3">
+						<?php the_content(); ?>
+					</div>
+
+					<div class="sm-col sm-col-12 md-col-12 lg-col-3 px3 pb3">
+						<!-- ger research sidebar-->
+						<?php include get_template_directory() . '/_sidebar_research.php'; ?>
+					</div>
+
 				</section>	
-				<!-- // get_template_part( 'template-parts/content/content', get_theme_mod( 'display_excerpt_or_full_post', 'excerpt' ) ); -->
-				<!-- // the_title(); -->
+				
 			<?php endwhile; ?>				
-			<!-- // Previous/next page navigation.
-			// twenty_twenty_one_the_posts_navigation(); -->
+			
 		<?php  else: ?>
-			<!-- // If no content, include the "No posts found" template.
-			// get_template_part( 'template-parts/content/content-none' ); -->
+			
 			<section class="clearfix">	
 				<?php echo "No content found!"; ?>
 			</section>
+
 		<?php endif; ?>
+
 
 	</div>	
 </main>

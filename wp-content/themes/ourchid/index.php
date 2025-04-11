@@ -14,8 +14,6 @@
  * @since Twenty Twenty-One 1.0
  */
 
-// test test
-
 get_header(); ?>
 
 <?php if ( is_home() && ! is_front_page() ) : ?>
@@ -30,6 +28,7 @@ if ( have_posts() ) {
 	// Load posts loop.
 	while ( have_posts() ) {
 		the_post();
+
 		// get_template_part( 'template-parts/content/content', get_theme_mod( 'display_excerpt_or_full_post', 'excerpt' ) );
 	}
 

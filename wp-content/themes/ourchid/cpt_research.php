@@ -20,11 +20,11 @@ function research_post_type() {
          'parent_item_colon' => '',
      );
 
-     $template = array(
+    //  $template = array(
         
-                array( 'core/image', array() ),
-                array( 'core/paragraph', array('placeholder' => 'Project Description') ),
-    );
+    //             array( 'core/image', array() ),
+    //             array( 'core/paragraph', array('placeholder' => 'Project Description') ),
+    // );
 
      // Register post type
     register_post_type('research' , array(
@@ -33,12 +33,13 @@ function research_post_type() {
         'has_archive' => true,
         'menu_icon'   => 'dashicons-welcome-learn-more',
         'rewrite' => array('slug' => 'research'),
-        'supports' => array('gutenberg','title', 'editor', 'thumbnail','excerpt'),
+        'supports' => array('gutenberg','title', 'editor', 'thumbnail', 'excerpt'),
         'show_in_rest' => true,
         'show_ui' => true,
         'show_in_menu' => true,
         'show_in_nav_menus' => true,
-        'template' => $template,
+        'show_in_rest' => true,
+        // 'template' => $template,
         'taxonomies' => array( 'type' ),
         'template_lock' => 'all'
     ) );
@@ -50,7 +51,7 @@ function research_post_type() {
 
 
 
-//  // Let us create Taxonomy for Custom Post Course
+ // Let us create Taxonomy for Custom Post Course
 // add_action( 'init', 'create_project_custom_taxonomy', 0 );
  
 // //create a custom taxonomy name it "type" for your posts
