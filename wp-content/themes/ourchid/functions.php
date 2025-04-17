@@ -120,7 +120,7 @@ add_filter('get_the_archive_title', function ($title) {
 
 require get_template_directory().'/cpt_members.php';
 require get_template_directory().'/cpt_research.php';
-
+require get_template_directory().'/cpt_resources.php';
 
 
 
@@ -234,53 +234,238 @@ function funding_register_metabox() {
     ) );
 
 
-    // // Add funding
-    // $funding_group_id = $cmb->add_field( array(
-	// 	'id'          => 'funding_source',
-	// 	'type'        => 'group',
-	// 	'repeatable'  => true,
-	// 	'options'     => array(
-	// 		'group_title'   => 'Funding {#}',
-	// 		'add_button'    => 'Add Another Funding',
-	// 		'remove_button' => 'Remove Funding',
-	// 		'closed'        => false,  // Repeater fields closed by default - neat & compact.
-	// 		'sortable'      => true,  // Allow changing the order of repeated groups.
-    //         'remove_confirm' => esc_html__( 'Are you sure you want to remove this?', 'cmb2' ), // Performs confirmation before removing group.
-            
-	// 	),
-	// ) );
-
-    // $cmb->add_group_field( $funding_group_id, array(
-	// 	// 'name' => 'Funding Source',
-	// 	'desc' => 'Enter the title for the Funding.',
-	// 	'id'   => 'title',
-	// 	'type' => 'text',
-	// ) );
-	
-    // $cmb->add_group_field( $funding_group_id, array(
-	// 	// 'name' => 'Funding URL',
-	// 	'desc' => 'Enter the url of the funding.',
-	// 	'id'   => 'url',
-	// 	'type' => 'text_url',
-	// ) );
-    
-    // $cmb->add_group_field( $funding_group_id, array(
-    //     // 'name' => 'Funding image',
-    //     'desc' => 'Upload an image/logo of the funding',
-    //     'id'   => 'image',
-    //     'type' => 'file_list',
-    //     'preview_size' => array( 100, 100 ), // Default: array( 50, 50 )
-    //     'query_args' => array( 'type' => 'image' ), // Only images attachment
-    //     // Optional, override default text strings
-    //     'text' => array(
-    //         'add_upload_files_text' => '+', // default: "Add or Upload Files"
-    //         'remove_image_text' => 'Remove', // default: "Remove Image"
-    //         'file_text' => 'Replacement', // default: "File:"
-    //         // 'file_download_text' => 'Replacement', // default: "Download"
-    //         'remove_text' => 'Remove', // default: "Remove"
-    //     ),
-    // ) );
-
 
 
 }
+
+
+
+
+
+add_action( 'cmb2_admin_init', 'resources_register_checkbox_metabox' );
+
+function resources_register_checkbox_metabox() {
+    $prefix = '_resources_'; // Prefix for field IDs to avoid name collisions
+
+    $cmb = new_cmb2_box( array(
+        'id'            => $prefix . 'metabox',
+        'title'         => __( 'Item Status', 'cmb2' ),
+        'object_types'  => array( 'resources' ), // Post type
+        'context'       => 'side',
+        'priority'      => 'high',
+        'show_names'    => true, // Show field names on the left
+    ) );
+
+    $cmb->add_field( array(
+        'name'    => __( 'Is this item checked out?', 'cmb2' ),
+        'desc'    => __( 'Check if it is checked out.', 'cmb2' ),
+        'id'      => $prefix . 'item_checked_out',
+        'type'    => 'checkbox',
+    ) );
+}
+
+
+
+
+// Add Department dropdown during registration
+add_action('register_form', 'add_department_dropdown');
+function add_department_dropdown() {
+    $value = (isset($_POST['department'])) ? esc_attr($_POST['department']) : '';
+    ?>
+    <p>
+        <label for="department"><?php _e('Department', 'your-textdomain'); ?><br />
+            <select name="department" id="department" required>
+                <option value="">Select Department</option>
+                <option value="N/A" <?php selected($value, 'N/A'); ?>>N/A</option>
+                <option value="Visual Communication" <?php selected($value, 'Visual Communication'); ?>>Visual Communication</option>
+                <option value="Art Technology & Culture" <?php selected($value, 'Art Technology & Culture'); ?>>Art Technology & Culture</option>
+                <option value="Art History" <?php selected($value, 'Art History'); ?>>Art History</option>
+            </select>
+        </label>
+    </p>
+    <?php
+}
+
+//Validate the Field Input
+add_filter('registration_errors', 'validate_department_field', 10, 3);
+function validate_department_field($errors, $sanitized_user_login, $user_email) {
+    if (empty($_POST['department'])) {
+        $errors->add('department_error', __('<strong>ERROR</strong>: Please select a department.', 'your-textdomain'));
+    }
+    return $errors;
+}
+
+//Save the Department to User Meta
+add_action('user_register', 'save_department_field');
+function save_department_field($user_id) {
+    if (!empty($_POST['department'])) {
+        update_user_meta($user_id, 'department', sanitize_text_field($_POST['department']));
+    }
+}
+
+//Display Department in Admin User Profile
+/*
+add_action('show_user_profile', 'show_department_user_field');
+add_action('edit_user_profile', 'show_department_user_field');
+
+function show_department_user_field($user) {
+    ?>
+    <h3>Department Information</h3>
+    <table class="form-table">
+        <tr>
+            <th><label for="department">Department</label></th>
+            <td>
+                <input type="text" name="department" id="department" value="<?php echo esc_attr(get_the_author_meta('department', $user->ID)); ?>" class="regular-text" readonly />
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+*/
+
+//use it like this:
+// $department = get_user_meta($user_id, 'department', true);
+
+
+
+
+//Show Editable Field in Admin Profile
+add_action('show_user_profile', 'show_edit_department_dropdown');
+add_action('edit_user_profile', 'show_edit_department_dropdown');
+
+function show_edit_department_dropdown($user) {
+    $department = get_user_meta($user->ID, 'department', true);
+    ?>
+    <h3>Department Information</h3>
+    <table class="form-table">
+        <tr>
+            <th><label for="department">Department</label></th>
+            <td>
+                <select name="department" id="department">
+                    <option value="">Select Department</option>
+                    <option value="VisComm" <?php selected($department, 'VisComm'); ?>>VisComm</option>
+                    <option value="Art History" <?php selected($department, 'Art History'); ?>>Art History</option>
+                    <option value="ATC" <?php selected($department, 'ATC'); ?>>ATC</option>
+                </select>
+                <p class="description">Select or update the user's department.</p>
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+
+//Save Department on Profile Update
+add_action('personal_options_update', 'save_department_dropdown_admin');
+add_action('edit_user_profile_update', 'save_department_dropdown_admin');
+
+function save_department_dropdown_admin($user_id) {
+    if (current_user_can('edit_user', $user_id) && isset($_POST['department'])) {
+        update_user_meta($user_id, 'department', sanitize_text_field($_POST['department']));
+    }
+}
+
+
+
+
+//Add resources cpt editing Capabilities to the Author Role
+
+function give_authors_access_to_resources() {
+    $role = get_role('author');
+
+    if (!$role) return;
+
+    $caps = array(
+        'read',
+        'edit_resource',
+        'read_resource',
+        'delete_resource',
+        'edit_resources',
+        'edit_others_resources',
+        'publish_resources',
+        'read_private_resources',
+    );
+
+    foreach ($caps as $cap) {
+        $role->add_cap($cap);
+    }
+}
+add_action('admin_init', 'give_authors_access_to_resources');
+
+
+//Remove Unwanted Capabilities
+function remove_default_caps_from_authors() {
+    $role = get_role('author');
+
+    $remove_caps = array(
+        'edit_posts',
+        'publish_posts',
+        'delete_posts',
+        'edit_published_posts',
+        'delete_published_posts',
+        'upload_files' // optional if you don't want them uploading media
+    );
+
+    foreach ($remove_caps as $cap) {
+        $role->remove_cap($cap);
+    }
+}
+add_action('admin_init', 'remove_default_caps_from_authors');
+
+
+
+//Add resources cpt editing Capabilities to the Admin 
+
+
+function add_resource_caps_to_admin() {
+    // For administrators
+    $admin = get_role('administrator');
+    if ($admin) {
+        $caps = array(
+            'edit_resource',
+            'read_resource',
+            'delete_resource',
+            'edit_resources',
+            'edit_others_resources',
+            'publish_resources',
+            'read_private_resources',
+            'delete_resources',
+            'delete_private_resources',
+            'delete_published_resources',
+            'delete_others_resources',
+            'edit_private_resources',
+            'edit_published_resources'
+        );
+
+        foreach ($caps as $cap) {
+            $admin->add_cap($cap);
+        }
+    }
+}
+add_action('admin_init', 'add_resource_caps_to_admin');
+
+//Add resources cpt editing Capabilities to the editor 
+function add_resource_caps_to_editors() {
+    $editor = get_role('editor');
+    if ($editor) {
+        $caps = array(
+            'edit_resource',
+            'read_resource',
+            'delete_resource',
+            'edit_resources',
+            'edit_others_resources',
+            'publish_resources',
+            'read_private_resources',
+            'delete_resources',
+            'delete_private_resources',
+            'delete_published_resources',
+            'delete_others_resources',
+            'edit_private_resources',
+            'edit_published_resources'
+        );
+
+        foreach ($caps as $cap) {
+            $editor->add_cap($cap);
+        }
+    }
+}
+add_action('admin_init', 'add_resource_caps_to_editors');
