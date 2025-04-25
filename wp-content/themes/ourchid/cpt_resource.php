@@ -22,28 +22,49 @@ function resources_post_type() {
 
      $template = array(        
                 // array( 'core/image', array() ),
-                array( 'core/paragraph', array('placeholder' => 'Product description') ),
+                array( 'core/paragraph', array('placeholder' => 'Item description') ),
                 array( 'core/paragraph', array('placeholder' => 'External link to the product (E.g., https://www.meta.com/quest/quest-3s)') ),
     );
 
      // Register post type
-    register_post_type('resources' , array(
+     register_post_type('resources', array(
         'labels' => $labels,
         'public' => true,
         'has_archive' => true,
-        'menu_icon'   => 'dashicons-editor-kitchensink',
-        'rewrite' => array('slug' => 'resources'),
-        'supports' => array('gutenberg','title', 'editor', 'thumbnail','excerpt', 'author'),
+        'menu_icon' => 'dashicons-editor-kitchensink',
+        'rewrite' => array('slug' => 'resource'),
+        'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'author'),
         'show_ui' => true,
         'show_in_menu' => true,
         'show_in_nav_menus' => true,
         'show_in_rest' => true,
         'template' => $template,
-        'taxonomies' => array( 'type' ),
         'template_lock' => 'all',
-        'capability_type' => array('resource', 'resources'),
-        'map_meta_cap' => true,
-    ) );
+        'taxonomies' => array('type'),
+        'capability_type' => ['resource', 'resources'], // plural and singular
+        'map_meta_cap' => true, // This must be true!
+        'capabilities' => array(
+            'edit_post' => 'edit_resource',
+            'read_post' => 'read_resource',
+            'delete_post' => 'delete_resource',
+            'edit_posts' => 'edit_resources',
+            'edit_others_posts' => 'edit_others_resources',
+            'publish_posts' => 'publish_resources',
+            'read_private_posts' => 'read_private_resources',
+        ),
+    ));
+
+    // Ensure authors can edit and delete their own resource posts
+    $role = get_role('author');
+    if ($role) {
+        $role->add_cap('edit_resource');
+        $role->add_cap('read_resource');
+        $role->add_cap('delete_resource');
+        $role->add_cap('edit_resources');
+        $role->add_cap('publish_resources');
+        $role->add_cap('edit_published_resources');
+        $role->add_cap('delete_published_resources');
+    }
  }
  add_action( 'init', 'resources_post_type');
  

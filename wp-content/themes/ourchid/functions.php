@@ -118,11 +118,88 @@ add_filter('get_the_archive_title', function ($title) {
     return $title;
 });
 
+
+
+// Add Department dropdown during registration
+add_action('register_form', 'add_department_dropdown');
+function add_department_dropdown() {
+    $value = (isset($_POST['department'])) ? esc_attr($_POST['department']) : '';
+    ?>
+    <p>
+        <label for="department"><?php _e('Department', 'your-textdomain'); ?><br />
+            <select name="department" id="department" required>
+                <option value="">Select Department</option>
+                <option value="N/A" <?php selected($value, 'N/A'); ?>>N/A</option>
+                <option value="Visual Communication" <?php selected($value, 'Visual Communication'); ?>>Visual Communication</option>
+                <option value="Art Technology & Culture" <?php selected($value, 'Art Technology & Culture'); ?>>Art Technology & Culture</option>
+                <option value="Art History" <?php selected($value, 'Art History'); ?>>Art History</option>
+            </select>
+        </label>
+    </p>
+    <?php
+}
+
+
+//Show Editable Field in Admin Profile
+add_action('show_user_profile', 'show_edit_department_dropdown');
+add_action('edit_user_profile', 'show_edit_department_dropdown');
+
+function show_edit_department_dropdown($user) {
+    $department = get_user_meta($user->ID, 'department', true);
+    ?>
+    <h3>Department Information</h3>
+    <table class="form-table">
+        <tr>
+            <th><label for="department">Department</label></th>
+            <td>
+                <select name="department" id="department">
+                    <option value="">Select Department</option>
+                    <option value="VisComm" <?php selected($department, 'VisComm'); ?>>VisComm</option>
+                    <option value="Art History" <?php selected($department, 'Art History'); ?>>Art History</option>
+                    <option value="ATC" <?php selected($department, 'ATC'); ?>>ATC</option>
+                </select>
+                <p class="description">Select or update the user's department.</p>
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+
+//Save Department on Profile Update
+add_action('personal_options_update', 'save_department_dropdown_admin');
+add_action('edit_user_profile_update', 'save_department_dropdown_admin');
+
+function save_department_dropdown_admin($user_id) {
+    if (current_user_can('edit_user', $user_id) && isset($_POST['department'])) {
+        update_user_meta($user_id, 'department', sanitize_text_field($_POST['department']));
+    }
+}
+
+
+//Validate the Field Input
+add_filter('registration_errors', 'validate_department_field', 10, 3);
+function validate_department_field($errors, $sanitized_user_login, $user_email) {
+    if (empty($_POST['department'])) {
+        $errors->add('department_error', __('<strong>ERROR</strong>: Please select a department.', 'your-textdomain'));
+    }
+    return $errors;
+}
+
+//Save the Department to User Meta
+add_action('user_register', 'save_department_field');
+function save_department_field($user_id) {
+    if (!empty($_POST['department'])) {
+        update_user_meta($user_id, 'department', sanitize_text_field($_POST['department']));
+    }
+}
+
+//use it like this:
+// $department = get_user_meta($user_id, 'department', true);
+
+
+
+//MEMBERS CUSTOM POST TYPE
 require get_template_directory().'/cpt_members.php';
-require get_template_directory().'/cpt_research.php';
-require get_template_directory().'/cpt_resources.php';
-
-
 
 
 //enable selecition of PIs as Co-PIs in research projects
@@ -177,9 +254,8 @@ function investigator_register_metabox() {
 }
 
 
+
 //enable funding
-
-
 add_action( 'cmb2_admin_init', 'funding_register_metabox' );
 
 function funding_register_metabox() {
@@ -240,17 +316,24 @@ function funding_register_metabox() {
 
 
 
+//RESEARCH CUSTOM POST TYPE
+require get_template_directory().'/cpt_research.php';
 
 
-add_action( 'cmb2_admin_init', 'resources_register_checkbox_metabox' );
 
-function resources_register_checkbox_metabox() {
-    $prefix = '_resources_'; // Prefix for field IDs to avoid name collisions
+//RESOURCE CUSTOM POST TYPE
+require get_template_directory().'/cpt_resource.php';
+
+//ADD CUSTOM METABOXES
+add_action( 'cmb2_admin_init', 'resource_register_metabox' );
+
+function resource_register_metabox() {
+    $prefix = '_resource_'; // Prefix for field IDs to avoid name collisions
 
     $cmb = new_cmb2_box( array(
         'id'            => $prefix . 'metabox',
         'title'         => __( 'Item Status', 'cmb2' ),
-        'object_types'  => array( 'resources' ), // Post type
+        'object_types'  => array( 'resource' ), // Post type
         'context'       => 'side',
         'priority'      => 'high',
         'show_names'    => true, // Show field names on the left
@@ -264,208 +347,20 @@ function resources_register_checkbox_metabox() {
     ) );
 }
 
-
-
-
-// Add Department dropdown during registration
-add_action('register_form', 'add_department_dropdown');
-function add_department_dropdown() {
-    $value = (isset($_POST['department'])) ? esc_attr($_POST['department']) : '';
-    ?>
-    <p>
-        <label for="department"><?php _e('Department', 'your-textdomain'); ?><br />
-            <select name="department" id="department" required>
-                <option value="">Select Department</option>
-                <option value="N/A" <?php selected($value, 'N/A'); ?>>N/A</option>
-                <option value="Visual Communication" <?php selected($value, 'Visual Communication'); ?>>Visual Communication</option>
-                <option value="Art Technology & Culture" <?php selected($value, 'Art Technology & Culture'); ?>>Art Technology & Culture</option>
-                <option value="Art History" <?php selected($value, 'Art History'); ?>>Art History</option>
-            </select>
-        </label>
-    </p>
-    <?php
+// Add custom column for Department in the Resource post type list
+function add_department_column($columns) {
+    $columns['department'] = __('Department', 'textdomain');
+    return $columns;
 }
+add_filter('manage_resources_posts_columns', 'add_department_column');
 
-//Validate the Field Input
-add_filter('registration_errors', 'validate_department_field', 10, 3);
-function validate_department_field($errors, $sanitized_user_login, $user_email) {
-    if (empty($_POST['department'])) {
-        $errors->add('department_error', __('<strong>ERROR</strong>: Please select a department.', 'your-textdomain'));
-    }
-    return $errors;
-}
-
-//Save the Department to User Meta
-add_action('user_register', 'save_department_field');
-function save_department_field($user_id) {
-    if (!empty($_POST['department'])) {
-        update_user_meta($user_id, 'department', sanitize_text_field($_POST['department']));
+// Populate the Department column with data
+function populate_department_column($column, $post_id) {
+    if ($column === 'department') {
+        $author_id = get_post_field('post_author', $post_id);
+        $department = get_user_meta($author_id, 'department', true);
+        echo $department ? esc_html($department) : __('N/A', 'textdomain');
     }
 }
+add_action('manage_resources_posts_custom_column', 'populate_department_column', 10, 2);
 
-//Display Department in Admin User Profile
-/*
-add_action('show_user_profile', 'show_department_user_field');
-add_action('edit_user_profile', 'show_department_user_field');
-
-function show_department_user_field($user) {
-    ?>
-    <h3>Department Information</h3>
-    <table class="form-table">
-        <tr>
-            <th><label for="department">Department</label></th>
-            <td>
-                <input type="text" name="department" id="department" value="<?php echo esc_attr(get_the_author_meta('department', $user->ID)); ?>" class="regular-text" readonly />
-            </td>
-        </tr>
-    </table>
-    <?php
-}
-*/
-
-//use it like this:
-// $department = get_user_meta($user_id, 'department', true);
-
-
-
-
-//Show Editable Field in Admin Profile
-add_action('show_user_profile', 'show_edit_department_dropdown');
-add_action('edit_user_profile', 'show_edit_department_dropdown');
-
-function show_edit_department_dropdown($user) {
-    $department = get_user_meta($user->ID, 'department', true);
-    ?>
-    <h3>Department Information</h3>
-    <table class="form-table">
-        <tr>
-            <th><label for="department">Department</label></th>
-            <td>
-                <select name="department" id="department">
-                    <option value="">Select Department</option>
-                    <option value="VisComm" <?php selected($department, 'VisComm'); ?>>VisComm</option>
-                    <option value="Art History" <?php selected($department, 'Art History'); ?>>Art History</option>
-                    <option value="ATC" <?php selected($department, 'ATC'); ?>>ATC</option>
-                </select>
-                <p class="description">Select or update the user's department.</p>
-            </td>
-        </tr>
-    </table>
-    <?php
-}
-
-//Save Department on Profile Update
-add_action('personal_options_update', 'save_department_dropdown_admin');
-add_action('edit_user_profile_update', 'save_department_dropdown_admin');
-
-function save_department_dropdown_admin($user_id) {
-    if (current_user_can('edit_user', $user_id) && isset($_POST['department'])) {
-        update_user_meta($user_id, 'department', sanitize_text_field($_POST['department']));
-    }
-}
-
-
-
-
-//Add resources cpt editing Capabilities to the Author Role
-
-function give_authors_access_to_resources() {
-    $role = get_role('author');
-
-    if (!$role) return;
-
-    $caps = array(
-        'read',
-        'edit_resource',
-        'read_resource',
-        'delete_resource',
-        'edit_resources',
-        'edit_others_resources',
-        'publish_resources',
-        'read_private_resources',
-    );
-
-    foreach ($caps as $cap) {
-        $role->add_cap($cap);
-    }
-}
-add_action('admin_init', 'give_authors_access_to_resources');
-
-
-//Remove Unwanted Capabilities
-function remove_default_caps_from_authors() {
-    $role = get_role('author');
-
-    $remove_caps = array(
-        'edit_posts',
-        'publish_posts',
-        'delete_posts',
-        'edit_published_posts',
-        'delete_published_posts',
-        'upload_files' // optional if you don't want them uploading media
-    );
-
-    foreach ($remove_caps as $cap) {
-        $role->remove_cap($cap);
-    }
-}
-add_action('admin_init', 'remove_default_caps_from_authors');
-
-
-
-//Add resources cpt editing Capabilities to the Admin 
-
-
-function add_resource_caps_to_admin() {
-    // For administrators
-    $admin = get_role('administrator');
-    if ($admin) {
-        $caps = array(
-            'edit_resource',
-            'read_resource',
-            'delete_resource',
-            'edit_resources',
-            'edit_others_resources',
-            'publish_resources',
-            'read_private_resources',
-            'delete_resources',
-            'delete_private_resources',
-            'delete_published_resources',
-            'delete_others_resources',
-            'edit_private_resources',
-            'edit_published_resources'
-        );
-
-        foreach ($caps as $cap) {
-            $admin->add_cap($cap);
-        }
-    }
-}
-add_action('admin_init', 'add_resource_caps_to_admin');
-
-//Add resources cpt editing Capabilities to the editor 
-function add_resource_caps_to_editors() {
-    $editor = get_role('editor');
-    if ($editor) {
-        $caps = array(
-            'edit_resource',
-            'read_resource',
-            'delete_resource',
-            'edit_resources',
-            'edit_others_resources',
-            'publish_resources',
-            'read_private_resources',
-            'delete_resources',
-            'delete_private_resources',
-            'delete_published_resources',
-            'delete_others_resources',
-            'edit_private_resources',
-            'edit_published_resources'
-        );
-
-        foreach ($caps as $cap) {
-            $editor->add_cap($cap);
-        }
-    }
-}
-add_action('admin_init', 'add_resource_caps_to_editors');
