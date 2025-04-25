@@ -1,5 +1,4 @@
-
-    <!-- funding start -->
+<!-- funding start -->
             
     <?php $entries = get_post_meta( get_the_ID(), 'funding_repeat_group', true );?>    
 
@@ -50,10 +49,10 @@
                 
             <h2 class="px2">Investigators</h2>
 
-            <?php $pi_query = new WP_Query(array('post_type' => 'members','post__in' => array ($pi)) ); ?>
+            <?php $pi_user = get_user_by('id', $pi); ?>
             <!-- START SHOW PI -->
                                                 
-            <?php while ( $pi_query->have_posts() ) : $pi_query->the_post(); ?> 
+            <?php if ($pi_user): ?> 
 
                 <div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb2">
 
@@ -61,29 +60,21 @@
 
                         <div class="px3">
                             <figure class="circle mx-auto">                           
-                                <?php if( has_post_thumbnail() ):?>
-                                    <?php the_post_thumbnail('medium', array('class' => 'block mx-auto circle')); ?>
-                                <?php else: ?>
-                                    <p class="mx-auto flex-auto block"><?php the_title(); ?></p>
-                                <?php endif; ?>
+                                <p class="mx-auto flex-auto block"><?php echo esc_html($pi_user->display_name); ?></p>
                             </figure>              
                         </div>
                         
                         <div class=" center">
-                            <h4 class="m0 mb2"><?php the_title(); ?></h4>
-                            <?php the_content(); ?>
+                            <h4 class="m0 mb2"><?php echo esc_html($pi_user->display_name); ?></h4>
+                            <p><?php echo esc_html($pi_user->user_email); ?></p>
                         </div>
-                        <?php //if (get_the_id() == $pi) {echo '<span class="pi"> </span>';}?>                            
                         <span class="pi"></span>                    
                     
                     </div>  <!--end profile -->
 
                 </div><!--end profile wrap-->
 
-            <?php 
-                endwhile; 
-                wp_reset_query();  
-            ?>              
+            <?php endif; ?>              
 
         <?php endif; ?>
         <!-- END SHOW PI -->
@@ -96,9 +87,9 @@
 
         <?php if( !empty( $co_pis ) ) : ?>
         
-        <?php $co_pis_query = new WP_Query(array('post_type' => 'members','post__in' => $co_pis));?>
-                                
-            <?php while ( $co_pis_query->have_posts() ) : $co_pis_query->the_post(); ?> 
+        <?php foreach ($co_pis as $co_pi_id): ?>
+            <?php $co_pi_user = get_user_by('id', $co_pi_id); ?>
+            <?php if ($co_pi_user): ?>
 
                 <div class="center sm-col sm-col-6 md-col-4 lg-col-12 px2 mb2">
 
@@ -106,38 +97,29 @@
 
                         <div class="px3">
                             <figure class="circle mx-auto">                           
-                                <?php if( has_post_thumbnail() ):?>
-                                    <?php the_post_thumbnail('medium', array('class' => 'block mx-auto circle')); ?>
-                                <?php else: ?>
-                                    <p class="mx-auto flex-auto block"><?php the_title(); ?></p>
-                                <?php endif; ?>
+                                <p class="mx-auto flex-auto block"><?php echo esc_html($co_pi_user->display_name); ?></p>
                             </figure>                      
                         </div>    
                             
                         <div class=" center">
-                            <h4 class="m0 mb2"><?php the_title(); ?></h4>
-                            <?php the_content(); ?>
+                            <h4 class="m0 mb2"><?php echo esc_html($co_pi_user->display_name); ?></h4>
+                            <p><?php echo esc_html($co_pi_user->user_email); ?></p>
                         </div>
                             
-                        <?php //if (get_the_id() == $pi) {echo '<span class="pi"> </span>';}?>
-
                     </div>  
 
                 </div>
 
-            <?php 
-                endwhile; 
-                wp_reset_query();
-            ?>              
+            <?php endif; ?>
+        <?php endforeach; ?>              
     
         <?php endif; ?>
-        <!-- END SHOW PI -->
+        <!-- END SHOW CO-PI -->
 
 
     </div>
     <!-- investigators end -->
 
 
-                        
 
-     
+

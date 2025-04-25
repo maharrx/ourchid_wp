@@ -199,7 +199,7 @@ function save_department_field($user_id) {
 
 
 //MEMBERS CUSTOM POST TYPE
-require get_template_directory().'/cpt_members.php';
+// require get_template_directory().'/cpt_members.php';
 
 
 //enable selecition of PIs as Co-PIs in research projects
@@ -208,47 +208,43 @@ add_action( 'cmb2_admin_init', 'investigator_register_metabox' );
 function investigator_register_metabox() {
 
     $cmb = new_cmb2_box( array(
-        'id'           => 'investigarors',
-        'title'        => 'Investigarors',
+        'id'           => 'investigators',
+        'title'        => 'Investigators',
         'object_types' => array( 'research' ), // post type
         'context'      => 'side', //  'normal', 'advanced', or 'side'
         'priority'     => 'low',  //  'high', 'core', 'default' or 'low'
         'show_names'   => true, // Show field names on the left
     ) );
 
-    // get the members
-    $args = array('post_type' => 'members', 'post_per_page' => -1);
-    $loop = new WP_Query($args);
-    if($loop->have_posts()) {  
-        while($loop->have_posts()) : $loop->the_post();
-            //
-            $varID = get_the_id();
-            $varName = get_the_title();
-            $pageArray[$varID]=$varName;
-        endwhile;   
+    // Get all WordPress users
+    $users = get_users();
+    $user_options = array();
+    foreach ($users as $user) {
+        $user_options[$user->ID] = $user->display_name;
     }
-    // Select PI from the members
+
+    // Select PI from the users
     $cmb->add_field( array(
         'name'             => 'Primary Investigator',
         'desc'             => 'Select Primary Investigator',
         'id'               => 'PI_select',
-        'cmb_styles'        => false, 
+        'cmb_styles'       => false, 
         'type'             => 'select',
         'show_option_none' => true,
         'default'          => 'custom',
-        'options'          => $pageArray
+        'options'          => $user_options
     ) );
 
-    // Select primary co-PIs from the members
+    // Select primary co-PIs from the users
     $cmb->add_field( array(
         'name'             => 'Other Investigator(s)',
         'desc'             => 'Other Investigator(s)',
         'id'               => 'investigators_select',
-        'cmb_styles'        => false, 
+        'cmb_styles'       => false, 
         'type'             => 'multicheck',
         'show_option_none' => false,
         'default'          => 'custom',
-        'options'          => $pageArray
+        'options'          => $user_options
     ) );
 
 }
@@ -325,15 +321,15 @@ require get_template_directory().'/cpt_research.php';
 require get_template_directory().'/cpt_resource.php';
 
 //ADD CUSTOM METABOXES
-add_action( 'cmb2_admin_init', 'resource_register_metabox' );
+add_action( 'cmb2_admin_init', 'resources_register_metabox' );
 
-function resource_register_metabox() {
-    $prefix = '_resource_'; // Prefix for field IDs to avoid name collisions
+function resources_register_metabox() {
+    $prefix = '_resources_'; // Prefix for field IDs to avoid name collisions
 
     $cmb = new_cmb2_box( array(
         'id'            => $prefix . 'metabox',
         'title'         => __( 'Item Status', 'cmb2' ),
-        'object_types'  => array( 'resource' ), // Post type
+        'object_types'  => array( 'resources' ), // Post type
         'context'       => 'side',
         'priority'      => 'high',
         'show_names'    => true, // Show field names on the left
