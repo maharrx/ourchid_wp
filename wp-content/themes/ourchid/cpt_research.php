@@ -33,7 +33,7 @@ function research_post_type() {
         'has_archive' => true,
         'menu_icon'   => 'dashicons-welcome-learn-more',
         'rewrite' => array('slug' => 'research'),
-        'supports' => array('gutenberg','title', 'editor', 'thumbnail', 'excerpt'),
+        'supports' => array('gutenberg','title', 'editor', 'thumbnail', 'excerpt', 'author'),
         'show_in_rest' => true,
         'show_ui' => true,
         'show_in_menu' => true,
@@ -41,7 +41,18 @@ function research_post_type() {
         'show_in_rest' => true,
         // 'template' => $template,
         'taxonomies' => array( 'type' ),
-        'template_lock' => 'all'
+        'template_lock' => 'all',
+        'capability_type' => ['research', 'researches'], // Singular and plural
+        'map_meta_cap' => true, // Enable meta capabilities
+        'capabilities' => array(
+            'edit_post' => 'edit_research',
+            'read_post' => 'read_research',
+            'delete_post' => 'delete_research',
+            'edit_posts' => 'edit_researches',
+            'edit_others_posts' => 'edit_others_researches',
+            'publish_posts' => 'publish_researches',
+            'read_private_posts' => 'read_private_researches',
+        ),
     ) );
  }
  add_action( 'init', 'research_post_type');
