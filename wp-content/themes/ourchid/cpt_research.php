@@ -40,8 +40,8 @@ function research_post_type() {
         'show_in_nav_menus' => true,
         'show_in_rest' => true,
         // 'template' => $template,
-        'taxonomies' => array( 'type' ),
-        'template_lock' => 'all',
+        // 'template_lock' => 'all',
+        // 'taxonomies' => array( 'type' ),
         'capability_type' => ['research', 'researches'], // Singular and plural
         'map_meta_cap' => true, // Enable meta capabilities
         'capabilities' => array(
@@ -54,6 +54,36 @@ function research_post_type() {
             'read_private_posts' => 'read_private_researches',
         ),
     ) );
+
+        // Ensure authors can edit and delete their own resource posts
+        $role = get_role('author');
+        if ($role) {
+            $role->add_cap('edit_research');
+            $role->add_cap('read_research');
+            $role->add_cap('delete_research');
+            $role->add_cap('edit_researches');
+            $role->add_cap('publish_researches');
+            $role->add_cap('edit_published_researches');
+            $role->add_cap('delete_published_researches');
+        }
+
+    // Ensure administrators can manage all research posts
+    $admin_role = get_role('administrator');
+    if ($admin_role) {
+        $admin_role->add_cap('edit_research');
+        $admin_role->add_cap('read_research');
+        $admin_role->add_cap('delete_research');
+        $admin_role->add_cap('edit_researches');
+        $admin_role->add_cap('edit_others_researches');
+        $admin_role->add_cap('publish_researches');
+        $admin_role->add_cap('read_private_researches');
+        $admin_role->add_cap('delete_researches');
+        $admin_role->add_cap('delete_private_researches');
+        $admin_role->add_cap('delete_published_researches');
+        $admin_role->add_cap('delete_others_researches');
+        $admin_role->add_cap('edit_private_researches');
+        $admin_role->add_cap('edit_published_researches');
+    }
  }
  add_action( 'init', 'research_post_type');
  
@@ -93,4 +123,4 @@ function research_post_type() {
 
 // }
 
-?>
+

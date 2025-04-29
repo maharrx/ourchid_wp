@@ -343,12 +343,12 @@ function resources_register_metabox() {
     ) );
 }
 
-// Add custom column for Department in the Research post type list
-function add_department_column_research($columns) {
+// Add custom column for Department
+function add_department_column($columns) {
     $columns['department'] = __('Department', 'textdomain');
     return $columns;
 }
-add_filter('manage_research_posts_columns', 'add_department_column_research');
+add_filter('manage_research_posts_columns', 'add_department_column');
 
 // Populate the Department column with data for Research post type
 function populate_department_column_research($column, $post_id) {
@@ -359,4 +359,18 @@ function populate_department_column_research($column, $post_id) {
     }
 }
 add_action('manage_research_posts_custom_column', 'populate_department_column_research', 10, 2);
+
+
+
+add_filter('manage_resources_posts_columns', 'add_department_column');
+
+// Populate the Department column with data for Resource post type
+function populate_department_column_resource($column, $post_id) {
+    if ($column === 'department') {
+        $author_id = get_post_field('post_author', $post_id);
+        $department = get_user_meta($author_id, 'department', true);
+        echo $department ? esc_html($department) : __('N/A', 'textdomain');
+    }
+}
+add_action('manage_resources_posts_custom_column', 'populate_department_column_resource', 10, 2);
 

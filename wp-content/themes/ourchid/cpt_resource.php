@@ -40,7 +40,7 @@ function resources_post_type() {
         'show_in_rest' => true,
         'template' => $template,
         'template_lock' => 'all',
-        'taxonomies' => array('type'),
+        // 'taxonomies' => array('type'),
         'capability_type' => ['resource', 'resources'], // singular and plural
         'map_meta_cap' => true, // This must be true!
         'capabilities' => array(
@@ -64,6 +64,24 @@ function resources_post_type() {
         $role->add_cap('publish_resources');
         $role->add_cap('edit_published_resources');
         $role->add_cap('delete_published_resources');
+    }
+
+    // Ensure administrators can manage all resource posts
+    $admin_role = get_role('administrator');
+    if ($admin_role) {
+        $admin_role->add_cap('edit_resource');
+        $admin_role->add_cap('read_resource');
+        $admin_role->add_cap('delete_resource');
+        $admin_role->add_cap('edit_resources');
+        $admin_role->add_cap('edit_others_resources');
+        $admin_role->add_cap('publish_resources');
+        $admin_role->add_cap('read_private_resources');
+        $admin_role->add_cap('delete_resources');
+        $admin_role->add_cap('delete_private_resources');
+        $admin_role->add_cap('delete_published_resources');
+        $admin_role->add_cap('delete_others_resources');
+        $admin_role->add_cap('edit_private_resources');
+        $admin_role->add_cap('edit_published_resources');
     }
 
  }
