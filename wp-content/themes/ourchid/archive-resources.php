@@ -27,10 +27,28 @@
 
 		<section class="clearfix mxn2">	
 			<?php 
+			$meta_query = [];
+			if (isset($_GET['orderby']) && $_GET['orderby'] === 'department') {
+				$meta_query = [
+					'relation' => 'OR',
+					[
+						'key' => 'department',
+						'compare' => 'EXISTS',
+					],
+					[
+						'key' => 'department',
+						'compare' => 'NOT EXISTS',
+					],
+				];
+			}
+
 			$args = array(
 				'post_type' => 'resources',
 				's' => isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '',
 				'cat' => isset($_GET['category']) ? intval($_GET['category']) : '',
+				'orderby' => isset($_GET['orderby']) && $_GET['orderby'] !== 'department' ? sanitize_text_field($_GET['orderby']) : 'title',
+				'order' => 'ASC',
+				'meta_query' => $meta_query,
 			);
 			$query = new WP_Query($args);
 
@@ -38,24 +56,34 @@
 				while ($query->have_posts()) {
 					$query->the_post(); ?>
 
-					<div class="md-col md-col-6 lg-col-4 px2 mt3">
-						<div class="profile bg-default shadow p3 center">
-							
+					<div class="md-col md-col-12 lg-col-12 px2">
+						<div class="profile bg-default p2 flex items-center border">
 							<div class="p2">
-								<figure class="circle mx-auto">                           
+								
 									<?php if( has_post_thumbnail() ):?>
-										<?php the_post_thumbnail('medium', array('class' => 'block mx-auto circle')); ?>
+										<figure class="circle mx-auto">                           
+										<?php the_post_thumbnail('thumbnail', array('class' => 'block mx-auto circle')); ?>
+										</figure>
 									<?php else: ?>
-										<p class="mx-auto flex-auto block"><?php the_title(); ?></p>
+										<p class="mx-auto flex-auto block"><span class="dashicons dashicons-images-alt
+"></span></p>
 									<?php endif; ?>
-								</figure>
+								
 							</div>
-							
-							<div class=" center">
+							<div class="ml3">
 								<h3 class="m0 mb2"><?php the_title(); ?></h3>
-								<?php the_content(); ?>
+								<p><strong>Author:</strong> <?php echo get_the_author(); ?></p>
+								<p><strong>Department:</strong> <?php 
+									$author_id = get_the_author_meta('ID');
+									$department = get_user_meta($author_id, 'department', true);
+									echo $department ? esc_html($department) : 'N/A';
+								?></p>
+								<p><strong>Checked Out:</strong> <?php 
+									$checked_out = get_post_meta(get_the_ID(), '_resource_item_checked_out', true);
+									echo $checked_out ? 'Yes' : 'No';
+								?></p>
+								<?php //the_content(); ?>
 							</div>
-						
 						</div>	
 
 					</div>    

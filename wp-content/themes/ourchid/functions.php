@@ -374,3 +374,9 @@ function populate_department_column_resource($column, $post_id) {
 }
 add_action('manage_resources_posts_custom_column', 'populate_department_column_resource', 10, 2);
 
+
+
+function load_dashicons(){
+    wp_enqueue_style('dashicons');
+}
+add_action('wp_enqueue_scripts', 'load_dashicons');
