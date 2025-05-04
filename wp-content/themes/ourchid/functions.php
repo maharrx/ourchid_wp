@@ -199,7 +199,7 @@ function save_department_field($user_id) {
 
 
 //MEMBERS CUSTOM POST TYPE
-// require get_template_directory().'/cpt_members.php';
+require get_template_directory().'/cpt_members.php';
 
 
 //enable selecition of PIs as Co-PIs in research projects
