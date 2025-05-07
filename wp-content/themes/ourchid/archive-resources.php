@@ -61,18 +61,18 @@
 									</figure>
 																		
 								</td>
-								<td>
+								<td style="min-width: 500px;">
 									<h3 class="m0 mb1 p0"><?php the_title(); ?></h3>
 									
 									
 									<p class="mb1 block"><?php echo esc_html($description); ?></p>
 									
 									<?php if ($external_link): ?>
-										<a class="underline" href="<?php echo esc_url($external_link); ?>" target="_blank"><small>Learn More</small></a>
+										<a class="underline" href="<?php echo esc_url($external_link); ?>" target="_blank"><small>Product Link</small></a>
 									<?php endif; ?>
 
 								</td>
-								<td>
+								<td style="min-width: 200px;">
 									
 									<?php //name
 										echo get_the_author(); 
@@ -83,13 +83,14 @@
 									?>
 									<br>
 									<?php //department
-										$author_id = get_the_author_meta('ID');
-										$department = get_user_meta($author_id, 'department', true);
-										echo $department ? esc_html($department) : '';
+										//$author_id = get_the_author_meta('ID');
+										//$department = get_user_meta($author_id, 'department', true);
+										//echo $department ? esc_html($department) : '';
 									?>
+									
 							</td>
 								
-							<td>
+							<td style="min-width: 120px;">
 								<?php 
 								
 								if ($checked_out) {
