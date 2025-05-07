@@ -25,36 +25,36 @@ function resources_post_type() {
         'rewrite' => array('slug' => 'resource'),
         'supports' => array('title', 'thumbnail', 'excerpt', 'author'),
         'show_in_rest' => true,
-        'capability_type' => ['resource', 'resources'],
-        'map_meta_cap' => true,
-        'capabilities' => array(
-            'edit_post' => 'edit_resource',
-            'read_post' => 'read_resource',
-            'delete_post' => 'delete_resource',
-            'edit_posts' => 'edit_resources',
-            'edit_others_posts' => 'edit_others_resources',
-            'publish_posts' => 'publish_resources',
-            'read_private_posts' => 'read_private_resources',
-        ),
+        // 'capability_type' => ['resource', 'resources'],
+        // 'map_meta_cap' => true,
+        // 'capabilities' => array(
+        //     'edit_post' => 'edit_resource',
+        //     'read_post' => 'read_resource',
+        //     'delete_post' => 'delete_resource',
+        //     'edit_posts' => 'edit_resources',
+        //     'edit_others_posts' => 'edit_others_resources',
+        //     'publish_posts' => 'publish_resources',
+        //     'read_private_posts' => 'read_private_resources',
+        // ),
     ));
 
-    $roles = ['author', 'administrator'];
-    foreach ($roles as $role_name) {
-        $role = get_role($role_name);
-        if ($role) {
-            $capabilities = [
-                'edit_resource', 'read_resource', 'delete_resource',
-                'edit_resources', 'publish_resources', 'edit_published_resources',
-                'delete_published_resources', 'edit_others_resources',
-                'read_private_resources', 'delete_resources',
-                'delete_private_resources', 'delete_others_resources',
-                'edit_private_resources'
-            ];
-            foreach ($capabilities as $cap) {
-                $role->add_cap($cap);
-            }
-        }
-    }
+    // $roles = ['author', 'administrator'];
+    // foreach ($roles as $role_name) {
+    //     $role = get_role($role_name);
+    //     if ($role) {
+    //         $capabilities = [
+    //             'edit_resource', 'read_resource', 'delete_resource',
+    //             'edit_resources', 'publish_resources', 'edit_published_resources',
+    //             'delete_published_resources', 'edit_others_resources',
+    //             'read_private_resources', 'delete_resources',
+    //             'delete_private_resources', 'delete_others_resources',
+    //             'edit_private_resources'
+    //         ];
+    //         foreach ($capabilities as $cap) {
+    //             $role->add_cap($cap);
+    //         }
+    //     }
+    // }
 }
 add_action('init', 'resources_post_type');
 
