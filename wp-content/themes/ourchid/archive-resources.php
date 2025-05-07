@@ -65,7 +65,7 @@
 									<h3 class="m0 mb1 p0"><?php the_title(); ?></h3>
 									
 									
-									<small class="mb1 block"><?php echo esc_html($description); ?></small>
+									<p class="mb1 block"><?php echo esc_html($description); ?></p>
 									
 									<?php if ($external_link): ?>
 										<a class="underline" href="<?php echo esc_url($external_link); ?>" target="_blank"><small>Learn More</small></a>
