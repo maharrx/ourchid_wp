@@ -25,36 +25,36 @@ function research_post_type() {
         'rewrite' => array('slug' => 'research'),
         'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'author'),
         'show_in_rest' => true,
-        'capability_type' => ['research', 'researches'],
-        'map_meta_cap' => true,
-        'capabilities' => array(
-            'edit_post' => 'edit_research',
-            'read_post' => 'read_research',
-            'delete_post' => 'delete_research',
-            'edit_posts' => 'edit_researches',
-            'edit_others_posts' => 'edit_others_researches',
-            'publish_posts' => 'publish_researches',
-            'read_private_posts' => 'read_private_researches',
-        ),
+        // 'capability_type' => ['research', 'researches'],
+        // 'map_meta_cap' => true,
+        // 'capabilities' => array(
+        //     'edit_post' => 'edit_research',
+        //     'read_post' => 'read_research',
+        //     'delete_post' => 'delete_research',
+        //     'edit_posts' => 'edit_researches',
+        //     'edit_others_posts' => 'edit_others_researches',
+        //     'publish_posts' => 'publish_researches',
+        //     'read_private_posts' => 'read_private_researches',
+        // ),
     ));
 
-    $roles = ['author', 'administrator'];
-    foreach ($roles as $role_name) {
-        $role = get_role($role_name);
-        if ($role) {
-            $capabilities = [
-                'edit_research', 'read_research', 'delete_research',
-                'edit_researches', 'publish_researches', 'edit_published_researches',
-                'delete_published_researches', 'edit_others_researches',
-                'read_private_researches', 'delete_researches',
-                'delete_private_researches', 'delete_others_researches',
-                'edit_private_researches'
-            ];
-            foreach ($capabilities as $cap) {
-                $role->add_cap($cap);
-            }
-        }
-    }
+    // $roles = ['author', 'administrator'];
+    // foreach ($roles as $role_name) {
+    //     $role = get_role($role_name);
+    //     if ($role) {
+    //         $capabilities = [
+    //             'edit_research', 'read_research', 'delete_research',
+    //             'edit_researches', 'publish_researches', 'edit_published_researches',
+    //             'delete_published_researches', 'edit_others_researches',
+    //             'read_private_researches', 'delete_researches',
+    //             'delete_private_researches', 'delete_others_researches',
+    //             'edit_private_researches'
+    //         ];
+    //         foreach ($capabilities as $cap) {
+    //             $role->add_cap($cap);
+    //         }
+    //     }
+    // }
 }
 add_action('init', 'research_post_type');
 
