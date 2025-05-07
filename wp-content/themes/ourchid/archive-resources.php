@@ -8,7 +8,7 @@
 			<?php the_archive_description(); ?>	
 		</header>
 
-		<form method="get" class="mb2 flex flex-center mb1">
+		<form method="get" class="mb4 flex flex-center">
 			
 				<input type="text" name="s" class="flex-auto field" placeholder="Search resources..." value="<?php echo get_search_query(); ?>">
 				
@@ -16,34 +16,17 @@
 			
 		</form>
 
-		<section class="clearfix mxn2">
-			<table class="table-light">
+		<table class="table-light">
 				<thead>
-					<tr>
-						<th>Image</th>
-						<th>Name</th>
-						<th>Owner</th>
-						<th>Department</th>
-						<th>Checked Out</th>
+					<tr class="mb2">
+						<th colspan=2>Item</th>
+						<th>Contact</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php 
 					$meta_query = [];
-					if (isset($_GET['orderby']) && $_GET['orderby'] === 'department') {
-						$meta_query[] = [
-							'relation' => 'OR',
-							[
-								'key' => 'department',
-								'compare' => 'EXISTS',
-							],
-							[
-								'key' => 'department',
-								'compare' => 'NOT EXISTS',
-							],
-						];
-					}
-
 					$args = array(
 						'post_type' => 'resources',
 						's' => isset($_GET['s']) ? sanitize_text_field($_GET['s']) : '',
@@ -56,30 +39,68 @@
 
 					if ($query->have_posts()) {
 						while ($query->have_posts()) {
-							$query->the_post(); ?>
+							$query->the_post(); 
+
+							// Retrieve custom meta box values
+							$description = get_post_meta(get_the_ID(), '_resources_description', true);
+							$external_link = get_post_meta(get_the_ID(), '_resources_external_link', true);
+							$checked_out = get_post_meta(get_the_ID(), '_resources_item_checked_out', true);
+
+							//print_r($checked_out);
+					?>
 
 							<tr>
 								<td>
-									<?php if( has_post_thumbnail() ):?>
-										<figure class="circle mx-auto">                           
-										<?php the_post_thumbnail('thumbnail', array('class' => 'block mx-auto circle')); ?>
-										</figure>
-									<?php else: ?>
-										<span class="dashicons dashicons-images-alt"></span>
-									<?php endif; ?>
+									
+									<figure style="width:80px; height:80px" class="m0 line-height-1 border text-center block"> 
+										<?php if( has_post_thumbnail() ):?>                          
+											<?php the_post_thumbnail('thumbnail', array('class' => 'mx-auto', 'style' => 'width: 80px; height:80px')); ?>
+										<?php else: ?>
+											<span style="padding:30px;" class="dashicons dashicons-images-alt"></span>
+										<?php endif; ?>
+									</figure>
+																		
 								</td>
-								<td><?php the_title(); ?></td>
-								<td><?php echo get_the_author(); ?></td>
-								<td><?php 
-									$author_id = get_the_author_meta('ID');
-									$department = get_user_meta($author_id, 'department', true);
-									echo $department ? esc_html($department) : 'N/A';
-								?></td>
-								<td><?php 
-									$checked_out = get_post_meta(get_the_ID(), '_resource_item_checked_out', true);
-									echo $checked_out ? 'Yes' : 'No';
-								?></td>
-							</tr>
+								<td>
+									<h3 class="m0 mb1 p0"><?php the_title(); ?></h3>
+									
+									
+									<small class="mb1 block"><?php echo esc_html($description); ?></small>
+									
+									<?php if ($external_link): ?>
+										<a class="underline" href="<?php echo esc_url($external_link); ?>" target="_blank"><small>Learn More</small></a>
+									<?php endif; ?>
+
+								</td>
+								<td>
+									
+									<?php //name
+										echo get_the_author(); 
+									?>
+									<br>
+									<?php //email
+										echo get_the_author_email(); 
+									?>
+									<br>
+									<?php //department
+										$author_id = get_the_author_meta('ID');
+										$department = get_user_meta($author_id, 'department', true);
+										echo $department ? esc_html($department) : '';
+									?>
+							</td>
+								
+							<td>
+								<?php 
+								
+								if ($checked_out) {
+									echo 'Checked Out';
+								} else {
+									echo 'Available';
+								}
+									
+								?>
+							</td>
+						</tr>
 
 						<?php }
 					} else {

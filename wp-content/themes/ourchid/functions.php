@@ -202,116 +202,6 @@ function save_department_field($user_id) {
 require get_template_directory().'/cpt_members.php';
 
 
-//enable selecition of PIs as Co-PIs in research projects
-add_action( 'cmb2_admin_init', 'investigator_register_metabox' );
-
-function investigator_register_metabox() {
-
-    $cmb = new_cmb2_box( array(
-        'id'           => 'investigators',
-        'title'        => 'Investigators',
-        'object_types' => array( 'research' ), // post type
-        'context'      => 'side', //  'normal', 'advanced', or 'side'
-        'priority'     => 'low',  //  'high', 'core', 'default' or 'low'
-        'show_names'   => true, // Show field names on the left
-    ) );
-
-    // Get all WordPress users
-    $users = get_users();
-    $user_options = array();
-    foreach ($users as $user) {
-        $user_options[$user->ID] = $user->display_name;
-    }
-
-    // Select PI from the users
-    $cmb->add_field( array(
-        'name'             => 'Primary Investigator',
-        'desc'             => 'Select Primary Investigator',
-        'id'               => 'PI_select',
-        'cmb_styles'       => false, 
-        'type'             => 'select',
-        'show_option_none' => true,
-        'default'          => 'custom',
-        'options'          => $user_options
-    ) );
-
-    // Select primary co-PIs from the users
-    $cmb->add_field( array(
-        'name'             => 'Other Investigator(s)',
-        'desc'             => 'Other Investigator(s)',
-        'id'               => 'investigators_select',
-        'cmb_styles'       => false, 
-        'type'             => 'multicheck',
-        'show_option_none' => false,
-        'default'          => 'custom',
-        'options'          => $user_options
-    ) );
-
-}
-
-
-
-//enable funding
-add_action( 'cmb2_admin_init', 'funding_register_metabox' );
-
-function funding_register_metabox() {
-
-    $cmb = new_cmb2_box( array(
-		'id'            => 'funding_repeater',  // Belgrove Bouncing Castles
-		'title'         => 'Funding',
-		'object_types'  => array( 'research', ), // Post type
-		'context'       => 'normal',
-		'priority'      => 'high',
-		'show_names'    => false, // Show field names on the left
-	) );
-
-
-    $group_field_id = $cmb->add_field( array(
-        'id'          => 'funding_repeat_group',
-        'type'        => 'group',
-        // 'description' => __( 'Generates reusable form entries', 'cmb2' ),
-        // 'repeatable'  => false, // use false if you want non-repeatable group
-        'options'     => array(
-            'group_title'       => __( 'Funding {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-            'add_button'        => __( 'Add Another Entry', 'cmb2' ),
-            'remove_button'     => __( 'Remove Entry', 'cmb2' ),
-            'sortable'          => true,
-            'closed'         => false, // true to have the groups closed by default
-            // 'remove_confirm' => esc_html__( 'Are you sure you want to remove?', 'cmb2' ), // Performs confirmation before removing group.
-        ),
-    ) );
-    
-    // Id's for group's fields only need to be unique for the group. Prefix is not needed.
-    $cmb->add_group_field( $group_field_id, array(
-        'name' => 'Funding Title',
-        'id'   => 'title',
-        'type' => 'text',
-        // 'repeatable' => true, // Repeatable fields are supported w/in repeatable groups (for most types)
-    ) );
-    
-    $cmb->add_group_field( $group_field_id, array(
-        'name' => 'URL',
-        'description' => 'URL of the funding',
-        'id'   => 'url',
-        'type' => 'text_url',
-    ) );
-    
-    $cmb->add_group_field( $group_field_id, array(
-        'name' => 'Entry Image',
-        'id'   => 'image',
-        'type' => 'file',
-        'options' => array(
-            'url' => false, // Hide the text input for the url
-        )
-    ) );
-
-
-
-
-}
-
-
-
 //RESEARCH CUSTOM POST TYPE
 require get_template_directory().'/cpt_research.php';
 
@@ -320,28 +210,7 @@ require get_template_directory().'/cpt_research.php';
 //RESOURCE CUSTOM POST TYPE
 require get_template_directory().'/cpt_resource.php';
 
-//ADD CUSTOM METABOXES
-add_action( 'cmb2_admin_init', 'resources_register_metabox' );
 
-function resources_register_metabox() {
-    $prefix = '_resources_'; // Prefix for field IDs to avoid name collisions
-
-    $cmb = new_cmb2_box( array(
-        'id'            => $prefix . 'metabox',
-        'title'         => __( 'Item Status', 'cmb2' ),
-        'object_types'  => array( 'resources' ), // Post type
-        'context'       => 'side',
-        'priority'      => 'high',
-        'show_names'    => true, // Show field names on the left
-    ) );
-
-    $cmb->add_field( array(
-        'name'    => __( 'Is this item checked out?', 'cmb2' ),
-        'desc'    => __( 'Check if it is checked out.', 'cmb2' ),
-        'id'      => $prefix . 'item_checked_out',
-        'type'    => 'checkbox',
-    ) );
-}
 
 // Add custom column for Department
 function add_department_column($columns) {

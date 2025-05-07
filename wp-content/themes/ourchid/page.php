@@ -23,7 +23,7 @@ get_header();
 		<?php if ( is_front_page() ) : ?>
 			<header class="hero pb3">
 				<h1 class="title mb0"><?php echo get_bloginfo( 'name' ); ?></h1>
-				<h2 class="subtitle m0 p0"><?php echo get_bloginfo( 'description' ); ?></h2>
+				<h2 class="subtitle m0 mb2 p0"><?php echo get_bloginfo( 'description' ); ?></h2>
 			</header>    
 
 			<section class="clearfix">	
