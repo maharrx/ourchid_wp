@@ -20,8 +20,8 @@
 				<thead>
 					<tr class="mb2">
 						<th colspan=2>Item</th>
+						<th>Availability</th>
 						<th>Contact</th>
-						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -44,7 +44,7 @@
 							// Retrieve custom meta box values
 							$description = get_post_meta(get_the_ID(), '_resources_description', true);
 							$external_link = get_post_meta(get_the_ID(), '_resources_external_link', true);
-							$checked_out = get_post_meta(get_the_ID(), '_resources_item_checked_out', true);
+							$availability = get_post_meta(get_the_ID(), '_resources_availability', true);
 
 							//print_r($checked_out);
 					?>
@@ -72,6 +72,17 @@
 									<?php endif; ?>
 
 								</td>
+								<td style="min-width: 120px;">
+									<?php 
+									
+									if ($availability) {
+										echo ($availability);
+									} else {
+										echo 'Not Available';
+									}
+										
+									?>
+								</td>
 								<td style="min-width: 200px;">
 									
 									<?php //name
@@ -88,20 +99,10 @@
 										//echo $department ? esc_html($department) : '';
 									?>
 									
-							</td>
+								</td>
 								
-							<td style="min-width: 120px;">
-								<?php 
-								
-								if ($checked_out) {
-									echo 'Checked Out';
-								} else {
-									echo 'Available';
-								}
-									
-								?>
-							</td>
-						</tr>
+
+							</tr>
 
 						<?php }
 					} else {

@@ -58,55 +58,39 @@ function resources_post_type() {
 }
 add_action('init', 'resources_post_type');
 
+// Update CMB2 meta boxes to nest fields in the same metabox
 function register_cmb2_meta_boxes() {
     $prefix = '_resources_';
 
-    // External Link Meta Box
-    $cmb_external_link = new_cmb2_box(array(
-        'id' => $prefix . 'external_link_metabox',
-        'title' => __('External Link', 'cmb2'),
-        'object_types' => array('resources'),
-        'context' => 'side',
-        'priority' => 'default',
-    ));
-
-    $cmb_external_link->add_field(array(
-        'name' => __('External Link', 'cmb2'),
-        'id' => $prefix . 'external_link',
-        'type' => 'text_url',
-        'desc' => __('Enter the external link URL.', 'cmb2'),
-    ));
-
-    // Description Meta Box
-    $cmb_description = new_cmb2_box(array(
-        'id' => $prefix . 'description_metabox',
-        'title' => __('Description', 'cmb2'),
+    // Description and External Link Meta Box
+    $cmb_details = new_cmb2_box(array(
+        'id' => $prefix . 'details_metabox',
+        'title' => __('Resource Details', 'cmb2'),
         'object_types' => array('resources'),
         'context' => 'normal',
         'priority' => 'default',
     ));
 
-    $cmb_description->add_field(array(
+    $cmb_details->add_field(array(
         'name' => __('Description', 'cmb2'),
         'id' => $prefix . 'description',
         'type' => 'textarea',
         'desc' => __('Enter a short description for the resource.', 'cmb2'),
     ));
 
-    // Item Status Meta Box
-    $cmb_item_status = new_cmb2_box(array(
-        'id' => $prefix . 'item_checked_out_metabox',
-        'title' => __('Item Status', 'cmb2'),
-        'object_types' => array('resources'),
-        'context' => 'side',
-        'priority' => 'high',
+    $cmb_details->add_field(array(
+        'name' => __('External Link', 'cmb2'),
+        'id' => $prefix . 'external_link',
+        'type' => 'text_url',
+        'desc' => __('Enter the external link URL.', 'cmb2'),
     ));
 
-    $cmb_item_status->add_field(array(
-        'name' => __('Is this item checked out?', 'cmb2'),
-        'id' => $prefix . 'item_checked_out',
-        'type' => 'checkbox',
-        'desc' => __('Check if it is checked out.', 'cmb2'),
+
+    $cmb_details->add_field(array(
+        'name' => __('Availability', 'cmb2'),
+        'id' => $prefix . 'availability',
+        'type' => 'text_small',
+        'desc' => __('Enter the quantity available for the resource.', 'cmb2'),
     ));
 }
 add_action('cmb2_admin_init', 'register_cmb2_meta_boxes');
