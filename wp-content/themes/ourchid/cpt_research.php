@@ -68,8 +68,22 @@ function investigator_register_metabox() {
         'show_names' => true,
     ));
 
-    $users = get_users();
-    $user_options = wp_list_pluck($users, 'display_name', 'ID');
+    // Fetch members from the 'members' custom post type
+    $members_query = new WP_Query(array(
+        'post_type' => 'members',
+        'posts_per_page' => -1,
+        'orderby' => 'title',
+        'order' => 'ASC',
+    ));
+
+    $member_options = array();
+    if ($members_query->have_posts()) {
+        while ($members_query->have_posts()) {
+            $members_query->the_post();
+            $member_options[get_the_ID()] = get_the_title();
+        }
+        wp_reset_postdata();
+    }
 
     $cmb->add_field(array(
         'name' => 'Primary Investigator',
@@ -77,7 +91,7 @@ function investigator_register_metabox() {
         'id' => 'PI_select',
         'type' => 'select',
         'show_option_none' => true,
-        'options' => $user_options,
+        'options' => $member_options,
     ));
 
     $cmb->add_field(array(
@@ -85,7 +99,7 @@ function investigator_register_metabox() {
         'desc' => 'Other Investigator(s)',
         'id' => 'investigators_select',
         'type' => 'multicheck',
-        'options' => $user_options,
+        'options' => $member_options,
     ));
 }
 add_action('cmb2_admin_init', 'investigator_register_metabox');
