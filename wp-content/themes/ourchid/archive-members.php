@@ -35,6 +35,8 @@
 						),
 					),
 					'posts_per_page' => -1, // All posts
+					'orderby' => 'title',
+        			'order' => 'ASC',
 				));
 
 				if ($members->have_posts()) {
