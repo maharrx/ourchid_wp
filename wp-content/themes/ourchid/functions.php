@@ -222,8 +222,8 @@ add_filter('manage_research_posts_columns', 'add_department_column');
 // Populate the Department column with data for Research post type
 function populate_department_column_research($column, $post_id) {
     if ($column === 'department') {
-        $author_id = get_post_field('post_author', $post_id);
-        $department = get_user_meta($author_id, 'department', true);
+        $contrubutor_id = get_post_field('post_author', $post_id);
+        $department = get_user_meta($contrubutor_id, 'department', true);
         echo $department ? esc_html($department) : __('N/A', 'textdomain');
     }
 }
@@ -236,13 +236,31 @@ add_filter('manage_resources_posts_columns', 'add_department_column');
 // Populate the Department column with data for Resource post type
 function populate_department_column_resource($column, $post_id) {
     if ($column === 'department') {
-        $author_id = get_post_field('post_author', $post_id);
-        $department = get_user_meta($author_id, 'department', true);
+        $contrubutor_id = get_post_field('post_author', $post_id);
+        $department = get_user_meta($contrubutor_id, 'department', true);
         echo $department ? esc_html($department) : __('N/A', 'textdomain');
     }
 }
 add_action('manage_resources_posts_custom_column', 'populate_department_column_resource', 10, 2);
 
+
+// Allow contributors to upload files   
+function allow_contributor_uploads() {
+    $contributor = get_role('contributor');
+    $contributor->add_cap('upload_files');
+}
+if ( current_user_can('contributor') && !current_user_can('upload_files') ) {
+    add_action('admin_init', 'allow_contributor_uploads');
+}
+
+// Uncomment the following to NOT ALLOW contributors to upload files   
+// function deny_contributor_uploads() {
+//     $contributor = get_role('contributor');
+//     $contributor->remove_cap('upload_files');
+// }
+// if ( current_user_can('contributor') && current_user_can('upload_files') ) {
+//     add_action('admin_init', 'deny_contributor_uploads');
+// }
 
 
 function load_dashicons(){
