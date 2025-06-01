@@ -23,7 +23,7 @@ function research_post_type() {
         'has_archive' => true,
         'menu_icon' => 'dashicons-welcome-learn-more',
         'rewrite' => array('slug' => 'research'),
-        'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'author'),
+        'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'contributor'),
         'show_in_rest' => true,
         // 'capability_type' => ['research', 'researches'],
         // 'map_meta_cap' => true,
