@@ -40,6 +40,10 @@
 								'value' => get_search_query(),
 								'compare' => 'LIKE',
 							),
+							array(
+								'key' => '_resources_description',
+								'compare' => 'EXISTS',
+							),
 						),
 					);
 					$query = new WP_Query($args);
