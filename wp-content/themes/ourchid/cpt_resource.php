@@ -23,7 +23,7 @@ function resources_post_type() {
         'has_archive' => true,
         'menu_icon' => 'dashicons-editor-kitchensink',
         'rewrite' => array('slug' => 'resource'),
-        'supports' => array('title', 'thumbnail', 'excerpt', 'contributor'),
+        'supports' => array('title', 'thumbnail', 'excerpt', 'author'),
         'show_in_rest' => true,
         // 'capability_type' => ['resource', 'resources'],
         // 'map_meta_cap' => true,
