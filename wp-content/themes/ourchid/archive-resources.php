@@ -1,48 +1,5 @@
 <?php get_header(); ?>
 
-<style>
-/* Make the table responsive */
-.table-light {
-    width: 100%;
-    border-collapse: collapse;
-    overflow-x: auto;
-    display: block;
-}
-
-.table-light th,
-.table-light td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-.table-light thead {
-    background-color: #f9f9f9;
-}
-
-.table-light tr {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.table-light th,
-.table-light td {
-    flex: 1 1 auto;
-    min-width: 120px;
-}
-
-@media (max-width: 768px) {
-    .table-light tr {
-        flex-direction: column;
-    }
-
-    .table-light th,
-    .table-light td {
-        text-align: center;
-    }
-}
-</style>
-
 <main>      
 	<div class="container mx-auto px3">
 
