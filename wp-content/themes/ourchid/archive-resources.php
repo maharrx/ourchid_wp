@@ -33,7 +33,14 @@
 						'cat' => isset($_GET['category']) ? intval($_GET['category']) : '',
 						'orderby' => isset($_GET['orderby']) && $_GET['orderby'] !== 'department' ? sanitize_text_field($_GET['orderby']) : 'title',
 						'order' => 'ASC',
-						'meta_query' => $meta_query,
+						'meta_query' => array(
+							'relation' => 'OR',
+							array(
+								'key' => '_resources_description',
+								'value' => get_search_query(),
+								'compare' => 'LIKE',
+							),
+						),
 					);
 					$query = new WP_Query($args);
 
