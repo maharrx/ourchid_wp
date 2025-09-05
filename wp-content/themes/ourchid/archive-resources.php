@@ -10,7 +10,7 @@
 
 		<form method="get" class="mb4 flex flex-center">
 			
-				<input type="text" name="s" class="flex-auto field" placeholder="Search resources..." value="<?php echo get_search_query(); ?>">
+				<input type="text" name="s" class="flex-auto field" placeholder="Search items..." value="<?php echo get_search_query(); ?>">
 				
 				<button type="submit" class="btn btn-primary ml2">Search</button>
 			
