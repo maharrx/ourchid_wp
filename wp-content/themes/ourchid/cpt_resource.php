@@ -4,9 +4,9 @@
  */
 function resources_post_type() {
     $labels = array(
-        'name' => _x("Resources", "post type general name"),
+        'name' => _x("Resource", "post type general name"),
         'singular_name' => _x("Item", "post type singular name"),
-        'menu_name' => 'Resources',
+        'menu_name' => 'Resource',
         'add_new' => _x("Add New Item", "Item"),
         'add_new_item' => __("Add New Item"),
         'edit_item' => __("Edit Item"),
