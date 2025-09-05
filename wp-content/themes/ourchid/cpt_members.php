@@ -33,7 +33,7 @@ function members_post_type() {
         'public' => true,
         'has_archive' => true,
         'menu_icon'   => 'dashicons-media-text',
-        'rewrite' => array('slug' => 'members'),
+        'rewrite' => array('slug' => 'people'),
         'supports' => array('gutenberg','title', 'editor', 'thumbnail','excerpt'),
         'show_ui' => true,
         'show_in_menu' => true,
