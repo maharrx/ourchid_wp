@@ -20,7 +20,7 @@
 				<thead>
 					<tr class="mb2">
 						<th colspan=2>Item</th>
-						<th>Available Qty.</th>
+						<th>Qty.</th>
 						<th>Contact</th>
 					</tr>
 				</thead>
